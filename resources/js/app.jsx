@@ -1,8 +1,16 @@
 import './bootstrap';
 import '../css/app.css';
 
-import { createInertiaApp } from '@inertiajs/react'
-import { createRoot } from 'react-dom/client'
+import { createInertiaApp } from '@inertiajs/react';
+import { createRoot } from 'react-dom/client';
+
+// Ajoutez ces lignes pour Ziggy
+import { Ziggy } from './ziggy-generated';
+window.route = (name, params, absolute) => {
+    return window.Ziggy 
+        ? route(name, params, absolute, window.Ziggy)
+        : name;
+};
 
 createInertiaApp({
   resolve: name => {
