@@ -1,0 +1,52 @@
+[
+    {
+      "id": 1,
+      "name": "Design",
+      "jobs": 235,
+      "icon": "🎨"
+    },
+    {
+      "id": 2,
+      "name": "Sales",
+      "jobs": 756,
+      "icon": "📊"
+    },
+    {
+      "id": 3,
+      "name": "Marketing",
+      "jobs": 140,
+      "icon": "📢",
+      "highlight": true
+    },
+    {
+      "id": 4,
+      "name": "Finance",
+      "jobs": 325,
+      "icon": "📷"
+    },
+    {
+      "id": 5,
+      "name": "Technology",
+      "jobs": 436,
+      "icon": "💻"
+    },
+    {
+      "id": 6,
+      "name": "Engineering",
+      "jobs": 542,
+      "icon": "🛠️"
+    },
+    {
+      "id": 7,
+      "name": "Business",
+      "jobs": 211,
+      "icon": "💼"
+    },
+    {
+      "id": 8,
+      "name": "Human Resource",
+      "jobs": 346,
+      "icon": "👥"
+    }
+  ]
+  
