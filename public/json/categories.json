@@ -3,50 +3,49 @@
       "id": 1,
       "name": "Design",
       "jobs": 235,
-      "icon": "🎨"
+      "icon": "PenTool"
     },
     {
       "id": 2,
       "name": "Sales",
       "jobs": 756,
-      "icon": "📊"
+      "icon": "BarChart"
     },
     {
       "id": 3,
       "name": "Marketing",
       "jobs": 140,
-      "icon": "📢",
+      "icon": "Megaphone",
       "highlight": true
     },
     {
       "id": 4,
       "name": "Finance",
       "jobs": 325,
-      "icon": "📷"
+      "icon": "DollarSign"
     },
     {
       "id": 5,
       "name": "Technology",
       "jobs": 436,
-      "icon": "💻"
+      "icon": "Monitor"
     },
     {
       "id": 6,
       "name": "Engineering",
       "jobs": 542,
-      "icon": "🛠️"
+      "icon": "Wrench"
     },
     {
       "id": 7,
       "name": "Business",
       "jobs": 211,
-      "icon": "💼"
+      "icon": "Briefcase"
     },
     {
       "id": 8,
       "name": "Human Resource",
       "jobs": 346,
-      "icon": "👥"
+      "icon": "Users"
     }
-  ]
-  
+]

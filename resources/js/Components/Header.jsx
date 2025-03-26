@@ -9,7 +9,6 @@ const Header = () => {
   return (
     <header className="bg-white shadow-md relative"> {/* Added relative positioning */}
       <div className="container mx-auto flex justify-end items-center p-4">
-        {/* Logo */}
        
 
         {/* Desktop Navigation */}
@@ -34,7 +33,7 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden z-50" // Added z-index for overlay protection
+          className="md:hidden z-50" 
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
