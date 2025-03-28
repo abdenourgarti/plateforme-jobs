@@ -1,0 +1,58 @@
+{
+    "id": 1,
+    "name": "Stripe",
+    "logo": "https://example.com/images/stripe-logo.png",
+    "website": "https://stripe.com",
+    "founded": "July 31, 2011",
+    "employees": "4000+",
+    "industry": "Payment Gateway",
+    "description": "Stripe is a technology company that builds economic infrastructure for the internet. Businesses of all sizes use our software and APIs to accept payments, send payouts, and manage their businesses online.",
+    "jobs_count": 43,
+    "social_links": {
+      "twitter": "https://twitter.com/stripe",
+      "facebook": "https://facebook.com/StripeHQ",
+      "linkedin": "https://linkedin.com/company/stripe"
+    },
+    "tech_stack": ["HTML 5", "CSS 3", "JavaScript", "Ruby", "Mixpanel", "Framer"],
+    "locations": [
+      "United States",
+      "United Kingdom",
+      "Germany",
+      "France",
+      "Canada",
+      "Australia",
+      "Japan",
+      "India",
+      "Brazil",
+      "Singapore"
+    ],
+    "gallery": [
+      "https://example.com/images/office1.jpg",
+      "https://example.com/images/office2.jpg",
+      "https://example.com/images/office3.jpg",
+      "https://example.com/images/office4.jpg"
+    ],
+    "benefits": [
+      {
+        "title": "Full Healthcare",
+        "description": "We believe in thriving communities and that starts with our team being happy and healthy.",
+        "icon": "❤️"
+      },
+      {
+        "title": "Unlimited Vacation",
+        "description": "You should have a flexible schedule that makes space for family, wellness, and fun.",
+        "icon": "🌴"
+      },
+      {
+        "title": "Skill Development",
+        "description": "We believe in always learning and leveling up our skills.",
+        "icon": "🎓"
+      },
+      {
+        "title": "Remote Working",
+        "description": "Work from home, coffee shop, or anywhere when you feel like it.",
+        "icon": "🏠"
+      }
+    ]
+  }
+  

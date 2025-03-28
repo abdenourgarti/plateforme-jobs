@@ -1,0 +1,51 @@
+[
+    {
+      "id": 1,
+      "name": "Design",
+      "jobs": 235,
+      "icon": "PenTool"
+    },
+    {
+      "id": 2,
+      "name": "Sales",
+      "jobs": 756,
+      "icon": "BarChart"
+    },
+    {
+      "id": 3,
+      "name": "Marketing",
+      "jobs": 140,
+      "icon": "Megaphone",
+      "highlight": true
+    },
+    {
+      "id": 4,
+      "name": "Finance",
+      "jobs": 325,
+      "icon": "DollarSign"
+    },
+    {
+      "id": 5,
+      "name": "Technology",
+      "jobs": 436,
+      "icon": "Monitor"
+    },
+    {
+      "id": 6,
+      "name": "Engineering",
+      "jobs": 542,
+      "icon": "Wrench"
+    },
+    {
+      "id": 7,
+      "name": "Business",
+      "jobs": 211,
+      "icon": "Briefcase"
+    },
+    {
+      "id": 8,
+      "name": "Human Resource",
+      "jobs": 346,
+      "icon": "Users"
+    }
+]

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
     return inertia('Home');
@@ -25,6 +26,21 @@ Route::middleware('auth')->group(function () {
     
     // Vos routes protégées ici
 });
+
+Route::get('/jobs/jobpage', function () {
+    return Inertia::render('client/JobPage'); 
+})->name('jobs.page');
+
+Route::get('/jobs/companies', function () {
+    return Inertia::render('client/Companies'); 
+})->name('companies.page');
+
+Route::get('/companies/companiesdetails', function () {
+    return Inertia::render('client/CompanyDetails'); 
+})->name('companiesDetails.page');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
