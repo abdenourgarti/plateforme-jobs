@@ -6,6 +6,11 @@ use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+require __DIR__.'/candidat.php';
+require __DIR__.'/entreprise.php';
+require __DIR__.'/offre.php';
+require __DIR__.'/admin.php';
+
 
 Route::get('/', function () {
     return inertia('Home');
