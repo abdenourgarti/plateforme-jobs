@@ -6,9 +6,11 @@ use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+
 Route::get('/', function () {
     return inertia('Home');
 });
+
 
 // Routes d'authentification
 Route::middleware('guest')->group(function () {

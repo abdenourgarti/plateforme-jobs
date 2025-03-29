@@ -3,34 +3,43 @@
 namespace App\Http\Controllers;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 
 class SocialiteController extends Controller
 {
     public function redirectToProvider($provider)
     {
+        
         return Socialite::driver($provider)->redirect();
     }
 
     public function handleProviderCallback($provider)
     {
         try {
-            $socialUser = Socialite::driver($provider)->user();
+
+            // $type = request('type');
+
+
+            $socialUser = Socialite::driver($provider)->setHttpClient(new Client([
+                'verify' => 'C:/wamp64/bin/php/php8.2.24/extras/ssl/cacert.pem'
+            ]))->user();
             
             $user = User::where('email', $socialUser->getEmail())->first();
 
             if (!$user) {
 
                 $user = User::create([
-                    'name' => $socialUser->getName(),
                     'email' => $socialUser->getEmail(),
                     'password' => bcrypt(uniqid()), 
+                    'type'=> 'candidat'
                 ]);
             }
 
+
             Auth::login($user);
 
-            return redirect()->route('dashboard'); 
+            return redirect()->route('jobs.page'); 
         } catch (\Exception $e) {
             return redirect()->route('login')->with('error', 'Erreur de connexion.');
         }
