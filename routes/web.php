@@ -11,9 +11,11 @@ require __DIR__.'/entreprise.php';
 require __DIR__.'/offre.php';
 require __DIR__.'/admin.php';
 
+
 Route::get('/', function () {
     return inertia('Home');
 });
+
 
 // Routes d'authentification
 Route::middleware('guest')->group(function () {
