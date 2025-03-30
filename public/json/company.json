@@ -1,58 +1,131 @@
 {
-    "id": 1,
-    "name": "Stripe",
-    "logo": "https://example.com/images/stripe-logo.png",
-    "website": "https://stripe.com",
-    "founded": "July 31, 2011",
-    "employees": "4000+",
-    "industry": "Payment Gateway",
-    "description": "Stripe is a technology company that builds economic infrastructure for the internet. Businesses of all sizes use our software and APIs to accept payments, send payouts, and manage their businesses online.",
-    "jobs_count": 43,
-    "social_links": {
-      "twitter": "https://twitter.com/stripe",
-      "facebook": "https://facebook.com/StripeHQ",
-      "linkedin": "https://linkedin.com/company/stripe"
+  "id": 1,
+  "name": "Stripe",
+  "logo": "Stripe.jpg",
+  "website": "https://stripe.com",
+  "founded": "July 31, 2011",
+  "employees": "4000+",
+  "industry": "Payment Gateway",
+  "description": "Stripe is a technology company that builds economic infrastructure for the internet. Businesses of all sizes use our software and APIs to accept payments, send payouts, and manage their businesses online.",
+  "jobs_count": 43,
+  "social_links": {
+    "twitter": "https://twitter.com/stripe",
+    "facebook": "https://facebook.com/StripeHQ",
+    "linkedin": "https://linkedin.com/company/stripe"
+  },
+  "tech_stack": ["HTML 5", "CSS 3", "JavaScript", "Ruby", "Mixpanel", "Framer"],
+  "locations": [
+    "United States",
+    "United Kingdom",
+    "Germany",
+    "France",
+    "Canada",
+    "Australia",
+    "Japan",
+    "India",
+    "Brazil",
+    "Singapore"
+  ],
+  "gallery": [
+    "job1.jpg",
+    "job2.jpg",
+    "job3.jpg",
+    "job4.jpg"
+  ],
+  "benefits": [
+    {
+      "title": "Full Healthcare",
+      "description": "We believe in thriving communities and that starts with our team being happy and healthy.",
+      "icon": "❤️"
     },
-    "tech_stack": ["HTML 5", "CSS 3", "JavaScript", "Ruby", "Mixpanel", "Framer"],
-    "locations": [
-      "United States",
-      "United Kingdom",
-      "Germany",
-      "France",
-      "Canada",
-      "Australia",
-      "Japan",
-      "India",
-      "Brazil",
-      "Singapore"
-    ],
-    "gallery": [
-      "https://example.com/images/office1.jpg",
-      "https://example.com/images/office2.jpg",
-      "https://example.com/images/office3.jpg",
-      "https://example.com/images/office4.jpg"
-    ],
-    "benefits": [
-      {
-        "title": "Full Healthcare",
-        "description": "We believe in thriving communities and that starts with our team being happy and healthy.",
-        "icon": "❤️"
-      },
-      {
-        "title": "Unlimited Vacation",
-        "description": "You should have a flexible schedule that makes space for family, wellness, and fun.",
-        "icon": "🌴"
-      },
-      {
-        "title": "Skill Development",
-        "description": "We believe in always learning and leveling up our skills.",
-        "icon": "🎓"
-      },
-      {
-        "title": "Remote Working",
-        "description": "Work from home, coffee shop, or anywhere when you feel like it.",
-        "icon": "🏠"
-      }
-    ]
-  }
-  
+    {
+      "title": "Unlimited Vacation",
+      "description": "You should have a flexible schedule that makes space for family, wellness, and fun.",
+      "icon": "🌴"
+    },
+    {
+      "title": "Skill Development",
+      "description": "We believe in always learning and leveling up our skills.",
+      "icon": "🎓"
+    },
+    {
+      "title": "Remote Working",
+      "description": "Work from home, coffee shop, or anywhere when you feel like it.",
+      "icon": "🏠"
+    }
+  ],
+  "jobs": [
+    {
+      "id": 1,
+      "company": "Revolut",
+      "title": "Email Marketing",
+      "location": "Madrid, Spain",
+      "type": "Full Time",
+      "categories": ["Marketing", "Design"],
+      "logo": "revoolut.png"
+    },
+    {
+      "id": 2,
+      "company": "Dropbox",
+      "title": "Brand Designer",
+      "location": "San Francisco, US",
+      "type": "Full Time",
+      "categories": ["Design", "Business"],
+      "logo": "dropbox.png"
+    },
+    {
+      "id": 3,
+      "company": "Pitch",
+      "title": "Email Marketing",
+      "location": "Berlin, Germany",
+      "type": "Full Time",
+      "categories": ["Marketing"],
+      "logo": "pitch.png"
+    },
+    {
+      "id": 4,
+      "company": "Blinkist",
+      "title": "Visual Designer",
+      "location": "Granada, Spain",
+      "type": "Full Time",
+      "categories": ["Design"],
+      "logo": "blinkist.png"
+    },
+    {
+      "id": 5,
+      "company": "ClassPass",
+      "title": "Product Designer",
+      "location": "Manchester, UK",
+      "type": "Full Time",
+      "categories": ["Marketing", "Design"],
+      "logo": "classpass.png"
+    },
+    {
+      "id": 6,
+      "company": "Canva",
+      "title": "Lead Designer",
+      "location": "Ontario, Canada",
+      "type": "Full Time",
+      "categories": ["Design", "Business"],
+      "logo": "canva.png"
+    },
+    {
+      "id": 7,
+      "company": "GoDaddy",
+      "title": "Brand Strategist",
+      "location": "Marseille, France",
+      "type": "Full Time",
+      "categories": ["Marketing"],
+      "logo": "godaddy.png"
+    },
+    {
+      "id": 8,
+      "company": "Twitter",
+      "title": "Data Analyst",
+      "location": "San Diego, US",
+      "type": "Full Time",
+      "categories": ["Technology"],
+      "logo": "x.png"
+    }
+  ]
+}

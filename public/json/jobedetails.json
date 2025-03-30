@@ -1,0 +1,84 @@
+{
+    "id": 1,
+    "title": "Social Media Assistant",
+    "company": "Stripe",
+    "location": "Paris, France",
+    "type": "Full-Time",
+    "logo": "stripe.png",
+    "apply_link": "#",
+    "description": "Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.",
+    "responsibilities": [
+      "Community engagement to ensure that is supported and actively represented online",
+      "Focus on social media content development and publication",
+      "Marketing and strategy support",
+      "Stay on top of trends on social media platforms, and suggest content ideas to the team",
+      "Engage with online communities"
+    ],
+    "who_you_are": [
+      "You get energy from people and building the ideal work environment",
+      "You have a sense for beautiful spaces and office experiences",
+      "You are a confident office manager, ready for added responsibilities",
+      "You're detail-oriented and creative",
+      "You're a growth marketer and know how to run campaigns"
+    ],
+    "nice_to_haves": [
+      "Fluent in English",
+      "Project management skills",
+      "Copy editing skills"
+    ],
+    "about_role": {
+      "apply_before": "July 31, 2021",
+      "job_posted_on": "July 1, 2021",
+      "job_type": "Full-Time",
+      "salary": "$75k-$85k USD",
+      "applied": 5,
+      "capacity": 10
+    },
+    "categories": ["Marketing", "Design"],
+    "required_skills": [
+      "Project Management",
+      "Copywriting",
+      "Social Media Marketing",
+      "English",
+      "Copy Editing"
+    ],
+    "perks_benefits": [
+      {
+        "title": "Full Healthcare",
+        "description": "We believe in thriving communities and that starts with our team being happy and healthy.",
+        "icon": "❤️"
+      },
+      {
+        "title": "Unlimited Vacation",
+        "description": "You should have a flexible schedule that makes space for family, wellness, and fun.",
+        "icon": "🌴"
+      },
+      {
+        "title": "Skill Development",
+        "description": "We believe in always learning and leveling up our skills.",
+        "icon": "🎓"
+      },
+      {
+        "title": "Team Summits",
+        "description": "Every 6 months we have a full team summit where we have fun, reflect, and plan for the upcoming quarter.",
+        "icon": "🏕️"
+      },
+      {
+        "title": "Remote Working",
+        "description": "Work from home, coffee shop, or anywhere when you feel like it.",
+        "icon": "🏠"
+      },
+      {
+        "title": "Commuter Benefits",
+        "description": "We’re grateful for all the time and energy each team member puts into getting to work every day.",
+        "icon": "🚌"
+      },
+      {
+        "title": "We give back",
+        "description": "We anonymously match any donation our employees make to organizations they care about.",
+        "icon": "🎁"
+      }
+    ],
+    "company_about": "Stripe is a technology company that builds economic infrastructure for the internet. Businesses of every size—from new startups to public companies—use our software to accept payments and manage their businesses online."
+  }
+  

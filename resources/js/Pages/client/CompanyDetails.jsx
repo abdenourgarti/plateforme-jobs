@@ -19,7 +19,8 @@ const CompanyDetails = () => {
     <div className="">
       <CompanyHeader company={company} />
       <CompanyProfile company={company} />
-      <CompanyBenefits benefits={company.benefits} />
+      <CompanyBenefits benefits={company.benefits} jobs={company.jobs} />
+
     </div>
   );
 };

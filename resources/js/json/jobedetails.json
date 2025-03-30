@@ -1,0 +1,84 @@
+{
+  "id": 1,
+  "title": "Social Media Assistant",
+  "company": "Stripe",
+  "location": "Paris, France",
+  "type": "Full-Time",
+  "logo": "stripe.jpg",
+  "apply_link": "#",
+  "description": "Stripe is looking for a Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community, and incentivizing others to engage on our channels.",
+  "responsibilities": [
+    "Community engagement to ensure that it is supported and actively represented online",
+    "Focus on social media content development and publication",
+    "Marketing and strategy support",
+    "Stay on top of trends on social media platforms and suggest content ideas to the team",
+    "Engage with online communities"
+  ],
+  "who_you_are": [
+    "You get energy from people and building the ideal work environment",
+    "You have a sense for beautiful spaces and office experiences",
+    "You are a confident office manager, ready for added responsibilities",
+    "You're detail-oriented and creative",
+    "You're a growth marketer and know how to run campaigns"
+  ],
+  "nice_to_haves": [
+    "Fluent in English",
+    "Project management skills",
+    "Copy editing skills"
+  ],
+  "about_role": {
+    "apply_before": "August 31, 2025",
+    "job_posted_on": "March 29, 2025",
+    "job_type": "Full-Time",
+    "salary": "$80k-$90k USD",
+    "applied": 7,
+    "capacity": 12
+  },
+  "categories": ["Marketing", "Design", "Social Media"],
+  "required_skills": [
+    "Project Management",
+    "Copywriting",
+    "Social Media Marketing",
+    "English",
+    "Copy Editing",
+    "SEO Optimization"
+  ],
+  "perks": [
+    {
+      "icon": "HeartPulse",
+      "title": "Full Healthcare",
+      "description": "We believe in thriving communities and that starts with our team being happy and healthy."
+    },
+    {
+      "icon": "Plane",
+      "title": "Unlimited Vacation",
+      "description": "We believe you should have a flexible schedule that makes space for family, wellness, and fun."
+    },
+    {
+      "icon": "Video",
+      "title": "Skill Development",
+      "description": "We believe in always learning and leveling up our skills. Whether it's a conference or an online course."
+    },
+    {
+      "icon": "Users",
+      "title": "Team Summits",
+      "description": "Every 6 months we have a full team summit where we have fun, reflect, and plan for the upcoming quarter."
+    },
+    {
+      "icon": "Home",
+      "title": "Remote Working",
+      "description": "You know how you perform your best. Work from home, coffee shop, or anywhere when you feel like it."
+    },
+    {
+      "icon": "Bus",
+      "title": "Commuter Benefits",
+      "description": "We’re grateful for all the time and energy each team member puts into getting to work every day."
+    },
+    {
+      "icon": "HandHeart",
+      "title": "We give back.",
+      "description": "We anonymously match any donation our employees make (up to $/€ 600) so they can support the organizations they care about most."
+    }
+  ]
+
+}

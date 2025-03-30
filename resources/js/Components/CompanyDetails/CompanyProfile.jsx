@@ -55,9 +55,9 @@ const CompanyProfile = ({ company }) => {
             company.gallery.map((img, index) => (
               <img
                 key={index}
-                src={img}
+                src={`/images/${img}`}
                 alt={`Company ${index + 1}`}
-                className="w-full h-32 object-cover rounded-lg shadow-sm"
+                className="w-full h-42 object-cover rounded-lg shadow-sm"
               />
             ))
           ) : (

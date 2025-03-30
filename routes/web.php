@@ -40,6 +40,15 @@ Route::get('/companies/companiesdetails', function () {
 })->name('companiesDetails.page');
 
 
+Route::get('/companies/companiesdetails/companyjobsdetails', function () {
+    return Inertia::render('client/CompanyJobDetails'); 
+})->name('CompanyJobDetails.page');
+
+
+Route::get('/admin/dashboard', function () {
+    return Inertia::render('admin/Dashboard');
+})->name('admin.dashboard');
+
 
 
 Route::middleware('auth')->group(function () {
