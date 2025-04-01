@@ -1,0 +1,50 @@
+{
+    "dashboardData": {
+      "userName": "Jake",
+      "dateRange": {
+        "start": "Jul 19",
+        "end": "Jul 25"
+      },
+      "stats": {
+        "totalApplied": 45,
+        "interviewed": 18
+      },
+      "interviewedPercentage": 40,
+      "availablePercentage": 60,
+      "recentApplications": [
+        {
+          "id": 1,
+          "position": "Social Media Assistant",
+          "company": "Nomad",
+          "location": "Paris, France",
+          "type": "Full-Time",
+          "appliedDate": "20 Jan 2025",
+          "status": "Review",
+          "logo": "https://via.placeholder.com/32/00dd77/ffffff?text=N",
+          "color": "bg-green-500"
+        },
+        {
+          "id": 2,
+          "position": "Social Media Assistant",
+          "company": "Ubisoft",
+          "location": "New York, USA",
+          "type": "Full-Time",
+          "appliedDate": "20 Jan 2025",
+          "status": "Shortlisted",
+          "logo": "https://via.placeholder.com/32/00aadd/ffffff?text=U",
+          "color": "bg-blue-500"
+        },
+        {
+          "id": 3,
+          "position": "Social Media Assistant",
+          "company": "Pocket",
+          "location": "Madrid, Spain",
+          "type": "Full-Time",
+          "appliedDate": "20 Jan 2025",
+          "status": "Declined",
+          "logo": "https://via.placeholder.com/32/dd0000/ffffff?text=P",
+          "color": "bg-red-500"
+        }
+      ]
+    }
+  }

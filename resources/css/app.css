@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.nav-link {
+    position: relative;
+    color: #374151 !important;
+    margin: 0.25rem 0;
+    width: 100%;
+  }
+  
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-link:hover::before {
+    background-color: #ef4444;
+  }
+  
+  .nav-link.active::before {
+    background-color: #ef4444;
+  }
+  
+  .nav-link:hover .text-icon,
+  .nav-link.active .text-icon {
+    color: #ef4444;
+  }
+  
+  .text-icon {
+    transition: color 0.3s ease;
+  }

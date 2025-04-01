@@ -1,0 +1,36 @@
+[
+    {
+      "logo": "/path/to/twitter-logo.png",
+      "company": "Twitter",
+      "title": "Product Designer",
+      "type": "Full-Time",
+      "dates": "Jun 2019 - Present (+5y)",
+      "location": "Manchester, UK",
+      "description": "Created and executed social media plans for 10 brands utilizing multiple features and content types to increase brand outreach, engagement, and leads."
+    },
+    {
+      "logo": "/path/to/godaddy-logo.png",
+      "company": "GoDaddy",
+      "title": "Growth Marketing Designer",
+      "type": "Full-Time",
+      "dates": "Jun 2011 - May 2019 (8y)",
+      "location": "Manchester, UK",
+      "description": "Developed digital marketing strategies, activation plans, proposals, contests, and promotions for client initiatives."
+    },
+    {
+      "company": "Acme Inc.",
+      "title": "UI/UX Designer",
+      "type": "Part-Time",
+      "dates": "Jan 2015 - Dec 2017 (3y)",
+      "location": "London, UK",
+      "description": "Collaborated with cross-functional teams to design user-friendly interfaces and conduct usability testing."
+    },
+    {
+      "company": "Tech Solutions Ltd.",
+      "title": "Junior Designer",
+      "type": "Internship",
+      "dates": "Jul 2013 - Sep 2013 (3m)",
+      "location": "Birmingham, UK",
+      "description": "Assisted senior designers in creating wireframes and prototypes for web applications."
+    }
+  ]
