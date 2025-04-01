@@ -24,7 +24,7 @@ const Header = () => {
           ))}
           <span className="w-1 h-5 bg-gray-300 rounded-2xl mx-4"></span>
           <Link
-            href="/signup"
+            href="/register"
             className="bg-red-500 text-white px-4 py-2 shadow hover:bg-red-600"
           >
             Sign Up

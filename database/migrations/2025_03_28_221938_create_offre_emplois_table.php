@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('offre_emplois', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('entreprise_id')->constrained('entreprise')->onDelete('cascade');
-            $table->foreignId('categorie_id')->constrained('categorie')->onDelete('cascade');
+            $table->foreignId('entreprise_id')->constrained('entreprises')->onDelete('cascade');
+            $table->foreignId('categorie_id')->constrained('categories')->onDelete('cascade');
             $table->string('titre');
             $table->enum('type_travail', ['Full-Time', 'Part-Time', 'Remote', 'Internship', 'Contrat']);
             $table->text('description');

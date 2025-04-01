@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('offre_emploi_paiements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('entreprise_id')->constrained('entreprise')->onDelete('cascade');
+            $table->foreignId('entreprise_id')->constrained('entreprises')->onDelete('cascade');
             $table->foreignId('offre_emploi_id')->constrained('offre_emplois')->onDelete('cascade');
             $table->dateTime('date');
             $table->decimal('montant', 10, 2);

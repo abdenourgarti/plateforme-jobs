@@ -3,7 +3,7 @@ export const navigationLinks = [
     { name: "CVTECH", href: "/" },
     { name: "Freelancing", href: "/" },
     { name: "Actualité", href: "/" },
-    { name: "login", href: "/" },
+    { name: "login", href: "/login" },
   ];
 
   export const footerServices = [

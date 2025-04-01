@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Candidat;
+use App\Models\Entreprise;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -32,18 +34,47 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
+
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // 'email' => 'required|string|email|max:255|unique:users',
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            
         ]);
 
+        // $type = $request->type;
+
+        $type = "candidat";
+
         $user = User::create([
-            'name' => $request->first_name . ' ' . $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'type'=> $type
         ]);
+
+        if($type==="candidat"){
+
+            $candidat = Candidat::create([
+                'user_id'=> $user->id,
+                'nom_complet' => $request->first_name . ' ' . $request->last_name,
+                'email' => $request->email,
+                'type'=> $type
+            ]);
+        }
+
+        // la partie entreprise il ne faut les domaines ainsi que 
+
+        if($type==="entreprise"){
+
+            $entreprise = Entreprise::create([
+                'user_id'=> $user->id,
+                'nom_complet' => $request->first_name . ' ' . $request->last_name,
+                'email' => $request->email,
+                'type'=> $type
+            ]);
+        }
+        
 
         event(new Registered($user));
 

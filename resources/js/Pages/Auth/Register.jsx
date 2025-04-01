@@ -21,6 +21,7 @@ const Register = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log(formData);
     e.preventDefault();
     console.log('Form submitted:', formData);
     Inertia.post(route('register'), formData);
