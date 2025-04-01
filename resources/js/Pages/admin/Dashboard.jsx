@@ -85,7 +85,7 @@ const Dashboard = () => {
         <h3 className="text-gray-500 text-sm mb-2">Total Jobs Applied</h3>
         <div className="flex items-center">
           <span className="text-4xl font-bold">{stats.totalApplied}</span>
-          <DocumentIcon className="ml-auto" />
+          <DocumentIcon  className="ml-auto " />
         </div>
       </div>
 

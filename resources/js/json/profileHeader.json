@@ -1,0 +1,9 @@
+{
+    "profilePhoto": "/images/candidate.jpg",
+    "name": "John Doe",
+    "jobTitle": "Software Engineer",
+    "location": "San Francisco, CA",
+    "workerStatus": "Active",
+    "quickEdit": true
+  }
+  

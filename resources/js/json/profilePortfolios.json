@@ -1,0 +1,22 @@
+[
+    {
+      "image": "/path/to/clinically.png",
+      "title": "Clinically - Clinic & Health Care Website",
+      "description": "A comprehensive website designed for healthcare providers, offering patient management tools and resources."
+    },
+    {
+      "image": "/path/to/growthly.png",
+      "title": "Growthly - SaaS Analytics & Sales Website",
+      "description": "A software-as-a-service platform providing advanced analytics and sales tracking solutions."
+    },
+    {
+      "image": "/path/to/planna.png",
+      "title": "Planna - Project Management App",
+      "description": "A user-friendly project management application for teams to collaborate and track progress efficiently."
+    },
+    {
+      "image": "/path/to/additional.png",
+      "title": "Additional Portfolio",
+      "description": "An additional project showcasing diverse skills and expertise."
+    }
+  ]

@@ -4,7 +4,7 @@ import Header from '@/components/admin/Header';
 
 const AdminLayout = ({ children }) => {
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen ">
       {/* Sidebar Navigation */}
       <Sidebar />
 

@@ -49,6 +49,33 @@ Route::get('/admin/dashboard', function () {
     return Inertia::render('admin/Dashboard');
 })->name('admin.dashboard');
 
+Route::get('/admin/findjob', function () {
+    return Inertia::render('admin/FindJob');
+})->name('admin.findjob');
+
+
+
+
+Route::get('/admin/profile', function () {
+    return Inertia::render('admin/ProfilePage');
+})->name('admin.profile');
+
+
+Route::get('/admin/settings', function () {
+    return Inertia::render('admin/Settings');
+})->name('admin.Settings');
+
+
+Route::get('/admin/companydetail', function () {
+    return Inertia::render('admin/CompanyDetail');
+})->name('admin.companydetail');
+
+
+
+
+Route::get('/admin/logindetails', function () {
+    return Inertia::render('admin/LoginDetails');
+})->name('admin.logindetails');
 
 
 Route::middleware('auth')->group(function () {
