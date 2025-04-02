@@ -16,24 +16,27 @@ class EntrepriseController extends Controller
     public function dashboard()
     {
         $entreprise = Auth::user()->entreprise;
-        $offres = $entreprise->offres()
-            ->with('categorie')
-            ->latest()
-            ->take(5)
-            ->get();
+        // $offres = $entreprise->offres()
+        //     ->with('categorie')
+        //     ->latest()
+        //     ->take(5)
+        //     ->get();
             
-        $totalOffres = $entreprise->offres()->count();
-        $offresActives = $entreprise->offres()->where('status', true)->where('date_fin', '>=', now())->count();
-        $totalApplications = $entreprise->offres()->withCount('applications')->get()->sum('applications_count');
+        // $totalOffres = $entreprise->offres()->count();
+        // $offresActives = $entreprise->offres()->where('status', true)->where('date_fin', '>=', now())->count();
+        // $totalApplications = $entreprise->offres()->withCount('applications')->get()->sum('applications_count');
 
-        return inertia('Entreprise/Dashboard', [
-            'offres' => $offres,
-            'stats' => [
-                'totalOffres' => $totalOffres,
-                'offresActives' => $offresActives,
-                'totalApplications' => $totalApplications
-            ]
-        ]);
+        return inertia('entreprise/Dashboard', 
+        
+        // [
+        //     'offres' => $offres,
+        //     'stats' => [
+        //         'totalOffres' => $totalOffres,
+        //         'offresActives' => $offresActives,
+        //         'totalApplications' => $totalApplications
+        //     ]
+        // ]
+    );
     }
 
     public function profile()

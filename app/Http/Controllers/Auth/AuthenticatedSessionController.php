@@ -28,15 +28,27 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)
     {
 
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        // Rediriger vers le dashboard au lieu de RouteServiceProvider::HOME
-        return redirect()->route('dashboard');
+        $user = Auth::user();
+
+        $type = $user->type;
+
+        if ($type === "candidat") {
+            
+            return Inertia::location(route('candidat.dashboard'));
+        }
+        if ($type === "entreprise") {
+
+            return Inertia::location(route('entreprise.dashboard'));
+
+        }
+
     }
 
     /**

@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
 
         
@@ -67,16 +67,13 @@ class RegisteredUserController extends Controller
                 'user_id'=> $user->id,
                 'nom' => $request->nom_entreprise,
                 'email' => $request->email,
-                // 'type'=> $type
             ]);
 
         }
-        
-
-        event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        return Inertia::location(route($type === "candidat" ? 'candidat.dashboard' : 'entreprise.dashboard'));
+
     }
 }
