@@ -31,7 +31,7 @@ class CandidatController extends Controller
             ->take(5)
             ->get();
 
-        return inertia('Candidat/Dashboard', [
+        return inertia('admin/Dashboard', [
             'applications' => $applications,
             'offresSuggestions' => $offresSuggestions
         ]);

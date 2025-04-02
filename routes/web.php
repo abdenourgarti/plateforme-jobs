@@ -94,8 +94,3 @@ Route::get('/admin/logindetails', function () {
 })->name('admin.logindetails');
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return inertia('Dashboard');
-    })->name('dashboard');
-});
