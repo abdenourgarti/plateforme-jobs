@@ -39,24 +39,24 @@ const Login = () => {
       <div className="w-full md:w-2/3 flex items-center justify-center p-6 bg-white">
         <div className="w-full max-w-md">
           <div className="text-center mb-6">
-            <div className="flex justify-center space-x-4 mb-8">
+            {/* <div className="flex justify-center space-x-4 mb-8">
               <a href="#" className="pb-2 text-gray-800 border-b-2 border-red-500 font-medium">
                 Job Seeker
               </a>
               <a href="#" className="pb-2 text-gray-500 hover:text-gray-800 font-medium">
                 Company
               </a>
-            </div>
+            </div> */}
             <h1 className="text-3xl font-bold mb-6">Welcome Back</h1>
             
-            <button className="w-full bg-white border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center mb-4 hover:bg-gray-50 transition duration-200">
+            <a href='/auth/google' className="w-full bg-white border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center mb-4 hover:bg-gray-50 transition duration-200">
               <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                 <g transform="matrix(1, 0, 0, 1, 0, 0)">
                   <path d="M21.8,10.4h-0.75v0h-9v3.75h5.41c-0.79,2.4-2.99,3.75-5.41,3.75c-3.31,0-6-2.69-6-6s2.69-6,6-6 c1.44,0,2.79,0.53,3.85,1.5l2.65-2.65C16.46,2.66,14.33,1.75,12,1.75c-5.25,0-9.5,4.25-9.5,9.5s4.25,9.5,9.5,9.5 c4.77,0,9.1-3.75,9.1-9.5C21.1,10.94,20.97,10.66,21.8,10.4z" fill="#4285F4"></path>
                 </g>
               </svg>
               <span className="ml-2 text-sm">Login with Google</span>
-            </button>
+            </a>
             
             <div className="my-4 flex items-center">
               <div className="flex-1 border-t border-gray-300"></div>
