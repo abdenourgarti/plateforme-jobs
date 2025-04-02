@@ -12,6 +12,7 @@ class Entreprise extends Model
     protected $fillable = [
         'user_id',
         'domaine_id',
+        'canton_id', // Ajout du canton_id
         'nom',
         'site',
         'date_creation',
@@ -33,6 +34,12 @@ class Entreprise extends Model
     public function domaine()
     {
         return $this->belongsTo(Domaine::class);
+    }
+
+    // Relation avec le canton
+    public function canton()
+    {
+        return $this->belongsTo(Canton::class);
     }
 
     public function technologies()

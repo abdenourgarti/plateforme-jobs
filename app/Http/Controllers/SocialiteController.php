@@ -22,7 +22,7 @@ class SocialiteController extends Controller
 
 
             $socialUser = Socialite::driver($provider)->setHttpClient(new Client([
-                'verify' => 'C:/wamp64/bin/php/php8.2.24/extras/ssl/cacert.pem'
+                'verify' => 'C:/wamp64/bin/php/php8.2.26/extras/ssl/cacert.pem'
             ]))->user();
             
             $user = User::where('email', $socialUser->getEmail())->first();

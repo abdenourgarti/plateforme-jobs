@@ -11,6 +11,7 @@ class Categorie extends Model
 
     protected $fillable = [
         'designation',
+        'icone',
         'is_active',
     ];
 
