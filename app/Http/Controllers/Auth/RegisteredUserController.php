@@ -34,18 +34,17 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
-
+        
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            // 'first_name' => 'required|string|max:255',
+            // 'last_name' => 'required|string|max:255',
             // 'email' => 'required|string|email|max:255|unique:users',
             // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             
         ]);
 
-        // $type = $request->type;
-
-        $type = "candidat";
+        
+        $type = $request->type;
 
         $user = User::create([
             'email' => $request->email,
@@ -62,17 +61,15 @@ class RegisteredUserController extends Controller
                 'type'=> $type
             ]);
         }
-
-        // la partie entreprise il ne faut les domaines ainsi que 
-
         if($type==="entreprise"){
 
             $entreprise = Entreprise::create([
                 'user_id'=> $user->id,
-                'nom_complet' => $request->first_name . ' ' . $request->last_name,
+                'nom' => $request->nom_entreprise,
                 'email' => $request->email,
-                'type'=> $type
+                // 'type'=> $type
             ]);
+
         }
         
 

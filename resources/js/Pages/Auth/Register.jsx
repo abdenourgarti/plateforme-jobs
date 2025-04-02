@@ -2,21 +2,28 @@ import React, { useState } from 'react';
 import loginImage from '../../../../public/images/login.webp';
 import { Inertia } from '@inertiajs/inertia';
 import { route } from 'ziggy-js';
+import { router } from '@inertiajs/react';
 
 
 const Register = () => {
+
+  const [typeSelect,setTypeSelect] = useState('candidat');
+
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
     email: '',
     password: '',
+    type:typeSelect,
+    nom_entreprise:''
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
+      type:typeSelect
     });
   };
 
@@ -27,6 +34,9 @@ const Register = () => {
     Inertia.post(route('register'), formData);
     // Ajoutez ici votre logique d'inscription
   };
+
+
+
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -44,23 +54,23 @@ const Register = () => {
         <div className="w-full max-w-md">
           <div className="text-center mb-6">
             <div className="flex justify-center space-x-4 mb-8">
-              <a href="#" className="pb-2 text-gray-800 border-b-2 border-red-500 font-medium">
+              <button onClick={()=>setTypeSelect('candidat')} className={`pb-2  font-medium ${typeSelect==="candidat" ? "border-b-2  border-red-500" : "text-gray-500"}`}>
                 Job Seeker
-              </a>
-              <a href="#" className="pb-2 text-gray-500 hover:text-gray-800 font-medium">
+              </button>
+              <button onClick={()=>setTypeSelect('entreprise')} className={`pb-2  font-medium ${typeSelect==="entreprise" ? "border-b-2  border-red-500 " : "text-gray-500"}`}>
                 Company
-              </a>
+              </button>
             </div>
             <h1 className="text-3xl font-bold mb-6">Get more opportunities</h1>
             
-            <button onClick={()=>Inertia.get('auth/google')} className="w-full bg-white border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center mb-4 hover:bg-gray-50 transition duration-200">
+            <a href='/auth/google' className="w-full bg-white border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center mb-4 hover:bg-gray-50 transition duration-200">
               <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                 <g transform="matrix(1, 0, 0, 1, 0, 0)">
                   <path d="M21.8,10.4h-0.75v0h-9v3.75h5.41c-0.79,2.4-2.99,3.75-5.41,3.75c-3.31,0-6-2.69-6-6s2.69-6,6-6 c1.44,0,2.79,0.53,3.85,1.5l2.65-2.65C16.46,2.66,14.33,1.75,12,1.75c-5.25,0-9.5,4.25-9.5,9.5s4.25,9.5,9.5,9.5 c4.77,0,9.1-3.75,9.1-9.5C21.1,10.94,20.97,10.66,21.8,10.4z" fill="#4285F4"></path>
                 </g>
               </svg>
               <span className="ml-2 text-sm">Sign Up with Google</span>
-            </button>
+            </a>
             
             <div className="my-4 flex items-center">
               <div className="flex-1 border-t border-gray-300"></div>
@@ -70,7 +80,7 @@ const Register = () => {
           </div>
 
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
+{typeSelect==="candidat"&&            <div className="mb-4">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full name</label>
               <div className="flex space-x-2">
                 <div className="w-1/2">
@@ -98,7 +108,25 @@ const Register = () => {
                   />
                 </div>
               </div>
-            </div>
+            </div>}
+{typeSelect==="entreprise"         &&   <div className="mb-4">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Company name</label>
+              <div className="flex space-x-2">
+                <div className="w-full">
+                  <input
+                    type="text"
+                    id="first_name"
+                    name="nom_entreprise"
+                    value={formData.nom_entreprise}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    placeholder="Company name"
+                    required
+                  />
+                </div>
+
+              </div>
+            </div>}
 
             <div className="mb-4">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
