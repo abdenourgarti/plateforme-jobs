@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('demande_inscription', function (Blueprint $table) {
+        Schema::create('demande_inscriptions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->enum('statut', ['en attente', 'accepte', 'refuse'])->default('en attente');

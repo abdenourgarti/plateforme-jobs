@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('offre_emploi_benefits', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('offre_emploi_id')->constrained('offre_emplois')->onDelete('cascade');
+            $table->foreignId('offre_emplois_id')->constrained('offre_emplois')->onDelete('cascade');
             $table->string('titre');
             $table->text('description')->nullable();
             $table->string('icon')->nullable();

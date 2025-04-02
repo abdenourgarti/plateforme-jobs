@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('candidat_experience', function (Blueprint $table) {
+        Schema::create('candidat_experiences', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('candidat_id')->constrained('candidat')->onDelete('cascade');
+            $table->foreignId('candidat_id')->constrained('candidats')->onDelete('cascade');
             $table->string('titre');
             $table->string('nom_entreprise');
             $table->enum('type_travail', ['Full-Time', 'Part-Time', 'Remote', 'Internship', 'Contrat']);

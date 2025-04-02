@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entreprise', function (Blueprint $table) {
+        Schema::create('entreprises', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('domaine_id')->constrained('domaine')->onDelete('cascade');
+            $table->foreignId('domaine_id')->constrained('domaines')->onDelete('cascade');
             $table->string('nom');
             $table->string('site')->nullable();
             $table->date('date_creation')->nullable();

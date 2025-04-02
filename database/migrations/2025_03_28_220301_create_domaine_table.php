@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('domaine', function (Blueprint $table) {
+        Schema::create('domaines', function (Blueprint $table) {
             $table->id();
             $table->string('designation')->unique();
             $table->boolean('is_active')->default(true);
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('domaine');
+        Schema::dropIfExists('domaines');
     }
 };

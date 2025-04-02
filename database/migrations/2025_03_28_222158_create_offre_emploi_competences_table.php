@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('offre_emploi_competences', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('offre_emploi_id')->constrained('offre_emplois')->onDelete('cascade');
+            $table->foreignId('offre_emplois_id')->constrained('offre_emplois')->onDelete('cascade');
             $table->string('designation');
             $table->timestamps();
         });
