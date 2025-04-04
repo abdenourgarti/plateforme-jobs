@@ -11,7 +11,7 @@ const FeaturedJobs = () => {
   }, []);
 
   return (
-    <section className="container mx-auto p-6">
+    <section className="container max-w-7xl w-full mx-auto p-6">
       <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold">
             Explore by <span className="text-red-600">category</span>
@@ -22,7 +22,7 @@ const FeaturedJobs = () => {
         </div>
       <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-6 mt-6">
         {jobs.map((job) => (
-          <div key={job.id} className="border p-4 rounded-lg shadow-sm">
+          <div key={job.id} className="border p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer">
             <div className="flex items-center gap-2">
               <img src={`images/logos/${job.logo}`} alt={job.company} className="w-8 h-8" />
               <span className="text-sm font-semibold">{job.company}</span>

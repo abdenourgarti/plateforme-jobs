@@ -15,7 +15,7 @@ const LatestJobs = () => {
       
 
       <div className="flex justify-center items-center">
-  <div className="max-w-5xl w-full">
+  <div className="max-w-7xl w-full mx-auto p-6">
   <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold">
             Latest <span className="text-red-600">jobes open</span>
@@ -27,7 +27,7 @@ const LatestJobs = () => {
 
     <div className="grid grid-cols-2 gap-8 mt-6">
       {jobs.map((job) => (
-        <div key={job.id} className="flex items-center space-x-4">
+        <div key={job.id} className="flex items-center space-x-4 border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer">
           {/* Logo */}
           <img src={`images/logos/${job.logo}`} alt={job.company} className="w-12 h-12" />
 

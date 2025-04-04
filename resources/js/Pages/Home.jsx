@@ -3,8 +3,14 @@ import StartPostingJobsSection from "@/components/home/StartPostingJobsSection";
 import JobCategories from "@/components/home/JobCategories";
 import FeaturedJobs from "@/components/home/FeaturedJobs";
 import LatestJobs from "@/components/home/LatestJobs";
+import { useEffect } from "react";
 
-const Home = () => {
+const Home = (props) => {
+  useEffect(() => {
+    console.log("Categories:", props.categories);
+    console.log("Latest Jobs By Category:", props.latestJobsByCategory);
+    console.log("Latest Jobs:", props.latestJobs);
+  }, [props]);
   return (
     <div className="w-full">
       <HeroSection 
@@ -20,12 +26,13 @@ const Home = () => {
         buttonText="Sign Up For Free"
         imageSrc="/images/dashboard-example-applify.png" // Replace with actual path
       />
-            <JobCategories />
+      
+      <JobCategories categories={props.categories}/>
 
-        <StartPostingJobsSection
-         title="Start posting jobs today"
-         buttonText="Sign Up For Free"
-         imageSrc="/images/dashboard-example-applify.png" // Replace with actual path
+      <StartPostingJobsSection
+        title="Start posting jobs today"
+        buttonText="Sign Up For Free"
+        imageSrc="/images/dashboard-example-applify.png" // Replace with actual path
       />
 
       <FeaturedJobs />
