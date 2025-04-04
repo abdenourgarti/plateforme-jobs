@@ -8,8 +8,18 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-md relative"> {/* Added relative positioning */}
-      <div className="container mx-auto flex justify-end items-center p-4">
-       
+      <div className="container mx-auto flex justify-between items-center p-4">
+        {/* Logo */}
+        <div className="flex items-center ml-4">
+          <Link href="/">
+            <img 
+              src={`images/logos/canva.png`}
+              alt="Logo" 
+              className="h-10 w-auto"
+            />
+            {/* <span className="text-xl font-bold">Logo</span> */}
+          </Link>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6 items-center">
@@ -72,7 +82,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
-        
-        

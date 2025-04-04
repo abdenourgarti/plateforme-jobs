@@ -1,86 +1,73 @@
-import { navigationLinks } from "@/config/navigation";
-import { footerServices, footerCompliance, footerSocialMedia } from "../config/footerLinks";
 import { Link } from "@inertiajs/react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-10 px-4 sm:px-6 lg:px-8">
-      {/* Divider line */}
+    <footer className="bg-gray-900 text-white py-10 px-8 sm:px-12 lg:px-16">
+      {/* Barre grise en haut du footer */}
       <div className="container mx-auto mb-8">
-        <div className="w-full h-px bg-gray-300/20"></div>
+        <div className="w-full h-[2px] bg-gray-600"></div>
       </div>
-
-      {/* Main content grid */}
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 lg:gap-20">
-        {/* First column */}
-        <div className="flex items-center text-center md:text-left">
-          <h2 className="text-lg font-light mb-4 md:mb-0">
-            The #1 Job Board for IT specialists in Switzerland
-          </h2>
-        </div>
-
-        {/* Services */}
-        <div className="text-center md:text-left">
-          <h3 className="font-bold mb-3">Services</h3>
-          <ul className="space-y-2">
-            {footerServices.map((item) => (
-              <li key={item.name}>
-                <Link href={item.href} className="text-gray-300 hover:text-red-500 font-light">
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Compliance */}
-        <div className="text-center md:text-left">
-          <h3 className="font-bold mb-3">Compliance</h3>
-          <ul className="space-y-2">
-            {footerCompliance.map((item) => (
-              <li key={item.name}>
-                <Link href={item.href} className="text-gray-300 hover:text-red-500 font-light">
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Social Media */}
-        <div className="text-center md:text-left">
-          <h3 className="font-bold mb-3">Social Media</h3>
-          <ul className="space-y-2">
-            {footerSocialMedia.map((item) => (
-              <li key={item.name}>
-                <Link href={item.href} className="text-gray-300 hover:text-red-500 font-light">
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {/* Newsletter section */}
-      <div className="container mx-auto md:mt-20">
-        <div className="max-w-2xl mx-auto">
-          <label className="block text-center">
-            <span className="text-lg font-light">Newsletter</span>
-            <div className="mt-4 flex flex-col md:flex-row gap-4">
+      
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-8">
+        {/* Logo Column - 30% du footer */}
+        <div className="md:col-span-4 flex flex-col p-4">
+          <div className="border border-white w-64 h-32 mb-6 flex items-center justify-center">
+          <img src={`images/logos/canva.png`} alt="logo" className="w-full h-full" />
+          </div>
+          
+          <div className="mb-4">
+            <h3 className="text-lg font-medium mb-4">Newsletter</h3>
+            <div className="flex flex-row">
               <input
                 type="email"
                 placeholder="Email Address"
-                className="w-full p-3 rounded-lg md:rounded-l md:rounded-r-none bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full p-2 bg-white text-gray-800"
               />
-              <button className="w-full md:w-auto bg-red-500 px-6 py-3 rounded-lg md:rounded-r text-white hover:bg-red-600 transition-colors">
+              <button className="bg-red-600 text-white py-2 px-4">
                 Subscribe
               </button>
             </div>
-          </label>
-          <p className="mt-4 text-center font-light text-sm text-gray-400">
-            Be aware of the latest job news, articles, sent to your inbox weekly.
+          </div>
+          <p className="text-sm mt-2">
+            Be aware of the latest job news,<br />
+            articles, sent to your inbox weekly.
           </p>
+        </div>
+
+        {/* Services Column */}
+        <div className="md:col-span-2 p-4">
+          <h3 className="text-lg font-medium mb-4">Services</h3>
+          <ul className="space-y-2">
+            <li><Link href="#" className="hover:text-gray-300">Companies</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">CVTech</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">Freelance</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">Coaching</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">Pricing</Link></li>
+          </ul>
+        </div>
+
+        {/* About/Contact Column */}
+        <div className="md:col-span-3 p-4">
+          <h3 className="text-lg font-medium mb-4">Compliance</h3>
+          <ul className="space-y-2">
+            <li><Link href="#" className="hover:text-gray-300">About us</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">Contact Us</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">Terms</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">Privacy Policy</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">FAQ</Link></li>
+          </ul>
+        </div>
+
+        {/* Social Media Column */}
+        <div className="md:col-span-3 p-4">
+          <h3 className="text-lg font-medium mb-4">Social Media</h3>
+          <ul className="space-y-2">
+            <li><Link href="#" className="hover:text-gray-300">LinkedIn</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">Facebook</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">Instagram</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">Twitter</Link></li>
+            <li><Link href="#" className="hover:text-gray-300">Telegram</Link></li>
+          </ul>
         </div>
       </div>
     </footer>
