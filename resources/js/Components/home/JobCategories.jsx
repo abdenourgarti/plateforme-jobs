@@ -2,18 +2,15 @@ import React, { useEffect, useState } from "react";
 import * as LucideIcons from "lucide-react"; // Import all Lucide icons
 import { Link } from "@inertiajs/react"; // Use Inertia for navigation
 
-const JobCategories = () => {
+const JobCategories = (props) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch("json/categories.json")
-      .then((response) => response.json())
-      .then((data) => setCategories(data))
-      .catch((error) => console.error("Error fetching categories:", error));
-  }, []);
+    setCategories(props.categories);
+  }, [props]);
 
   return (
-    <section className="py-12">
+    <section className="py-12 max-w-7xl w-full mx-auto">
       <div className="container mx-auto px-6">
         {/* Title */}
         <div className="flex justify-between items-center mb-8">
@@ -29,7 +26,7 @@ const JobCategories = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {categories.map((category) => {
             // Get the corresponding Lucide icon component
-            const IconComponent = LucideIcons[category.icon] || LucideIcons.HelpCircle;
+            const IconComponent = LucideIcons[category.icone] || LucideIcons.HelpCircle;
 
             return (
               <Link 
@@ -43,8 +40,8 @@ const JobCategories = () => {
                     hover:bg-red-600 hover:text-white cursor-pointer"
                 >
                   <IconComponent size={40} className="mb-4" />
-                  <h3 className="text-lg font-bold">{category.name}</h3>
-                  <p className="text-sm mt-2">{category.jobs} jobs available →</p>
+                  <h3 className="text-lg font-bold">{category.designation}</h3>
+                  <p className="text-sm mt-2">{category.offres_count} jobs available →</p>
                 </div>
               </Link>
             );
