@@ -2,6 +2,7 @@ import { useState } from "react";
 import { navigationLinks } from "@/config/navigation";
 import { Link } from "@inertiajs/react";
 import { Menu, X } from "lucide-react";
+import Logo from "../../../public/images/logos/canva.png"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ const Header = () => {
         <div className="flex items-center ml-4">
           <Link href="/">
             <img 
-              src={`images/logos/canva.png`}
+              src={Logo}
               alt="Logo" 
               className="h-10 w-auto"
             />

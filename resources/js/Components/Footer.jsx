@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import Logo from "../../../public/images/logos/canva.png"
 
 const Footer = () => {
   return (
@@ -12,7 +13,7 @@ const Footer = () => {
         {/* Logo Column - 30% du footer */}
         <div className="md:col-span-4 flex flex-col p-4">
           <div className="border border-white w-64 h-32 mb-6 flex items-center justify-center">
-          <img src={`images/logos/canva.png`} alt="logo" className="w-full h-full" />
+          <img src={Logo} alt="logo" className="w-full h-full" />
           </div>
           
           <div className="mb-4">

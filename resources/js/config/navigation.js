@@ -1,5 +1,6 @@
 export const navigationLinks = [
-    { name: "Jobs" ,href: "/" },
+    { name: "Jobs" ,href: "/offres" },
+    { name: "Companies", href: "/entreprises" },
     { name: "CVTECH", href: "/" },
     { name: "Freelancing", href: "/" },
     { name: "Actualité", href: "/" },
@@ -7,7 +8,7 @@ export const navigationLinks = [
   ];
 
   export const footerServices = [
-    { name: "Companies" ,href: "/" },
+    { name: "Companies" ,href: "/entreprises" },
     { name: "CVTECH", href: "/" },
     { name: "Freelance", href: "/" },
     { name: "Coaching", href: "/" },
