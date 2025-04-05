@@ -46,7 +46,7 @@ class OffreEmploiController extends Controller
         $offres = $query->latest()->paginate(10)->withQueryString();
         $categories = Categorie::where('is_active', true)->get();
         
-        return inertia('Offres/Index', [
+        return inertia('client/JobPage', [
             'offres' => $offres,
             'categories' => $categories,
             'filters' => $request->only(['search', 'categorie', 'type_travail'])
