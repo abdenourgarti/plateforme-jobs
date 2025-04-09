@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             CategorieSeeder::class,
             DomaineSeeder::class,
             CantonSeeder::class,
+            EntrepriseSeeder::class,
+            OffreEmploiSeeder::class,
         ]);
 
         // $admin = User::factory()->create([

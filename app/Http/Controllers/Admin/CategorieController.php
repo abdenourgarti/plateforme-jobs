@@ -19,6 +19,7 @@ class CategorieController extends Controller
         return inertia('Admin/Categories/Index', [
             'categories' => $categories
         ]);
+        // gg
     }
     
     /**

@@ -63,7 +63,7 @@ const Register = () => {
             </div>
             <h1 className="text-3xl font-bold mb-6">Get more opportunities</h1>
             
-            <a href='/auth/google' className="w-full bg-white border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center mb-4 hover:bg-gray-50 transition duration-200">
+            <a href={`/auth/google`} className="w-full bg-white border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center mb-4 hover:bg-gray-50 transition duration-200">
               <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                 <g transform="matrix(1, 0, 0, 1, 0, 0)">
                   <path d="M21.8,10.4h-0.75v0h-9v3.75h5.41c-0.79,2.4-2.99,3.75-5.41,3.75c-3.31,0-6-2.69-6-6s2.69-6,6-6 c1.44,0,2.79,0.53,3.85,1.5l2.65-2.65C16.46,2.66,14.33,1.75,12,1.75c-5.25,0-9.5,4.25-9.5,9.5s4.25,9.5,9.5,9.5 c4.77,0,9.1-3.75,9.1-9.5C21.1,10.94,20.97,10.66,21.8,10.4z" fill="#4285F4"></path>
