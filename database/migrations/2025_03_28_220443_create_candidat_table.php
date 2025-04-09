@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('candidats', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('canton_id')->nullable()->constrained('cantons')->nullOnDelete();
             $table->string('nom_complet', 100);
             $table->string('email', 50);
             $table->string('adresse', 255)->nullable();

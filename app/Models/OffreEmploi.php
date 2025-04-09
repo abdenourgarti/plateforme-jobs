@@ -12,6 +12,7 @@ class OffreEmploi extends Model
     protected $fillable = [
         'entreprise_id',
         'categorie_id',
+        'canton_id', // Ajout du canton_id
         'titre',
         'type_travail',
         'description',
@@ -39,6 +40,12 @@ class OffreEmploi extends Model
     public function categorie()
     {
         return $this->belongsTo(Categorie::class);
+    }
+
+    // Relation avec le canton
+    public function canton()
+    {
+        return $this->belongsTo(Canton::class);
     }
 
     public function competences()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Entreprise;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categorie;
 use App\Models\Entreprise;
 use App\Models\EntrepriseTechnologie;
 use App\Models\Domaine;
@@ -13,6 +14,61 @@ use Inertia\Inertia;
 
 class EntrepriseController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        $query = Entreprise::with('canton', 'domaine');
+        
+        // Filtres
+        if ($request->filled('domaine')) {
+            $query->where('domaine_id', $request->domaine);
+        }
+        
+        if ($request->filled('canton')) {
+            $query->where('canton_id', $request->canton);
+        }
+        
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nom', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('locations', 'like', "%{$search}%");
+            });
+        }
+        
+        $entreprises = $query->latest()->paginate(10)->withQueryString();
+        $categories = Categorie::where('is_active', true)->get();
+        
+        return inertia('client/Companies', [
+            'entreprises' => $entreprises,
+            'categories' => $categories,
+            'filters' => $request->only(['search', 'domaine', 'canton'])
+        ]);
+    }
+    
+    /**
+     * Afficher le détail d'une offre d'emploi
+     */
+    public function show(Entreprise $entreprise)
+    {
+        $entreprise->load([
+            'domaine',
+            'canton',
+            'technologies',
+        ]);
+        
+        return inertia('client/CompanyDetails', [
+            'entreprise' => $entreprise,
+            'offres' => $entreprise->offres()
+                ->with('entreprise', 'categorie')
+                ->where('entreprise_id', $entreprise->id)
+                ->andWhere('status', true)
+                ->latest()
+                ->take(5)
+                ->get(),
+        ]);
+    }
     public function dashboard()
     {
         $entreprise = Auth::user()->entreprise;

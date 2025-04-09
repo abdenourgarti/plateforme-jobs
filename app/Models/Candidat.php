@@ -11,6 +11,7 @@ class Candidat extends Model
 
     protected $fillable = [
         'user_id',
+        'canton_id', // Ajout du canton_id
         'nom_complet',
         'email',
         'adresse',
@@ -33,6 +34,12 @@ class Candidat extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Relation avec le canton
+    public function canton()
+    {
+        return $this->belongsTo(Canton::class);
     }
 
     public function competences()

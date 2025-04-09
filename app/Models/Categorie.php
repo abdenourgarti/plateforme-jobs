@@ -11,11 +11,12 @@ class Categorie extends Model
 
     protected $fillable = [
         'designation',
+        'icone',
         'is_active',
     ];
 
-    public function offresEmplois()
+    public function offreEmplois()
     {
-        return $this->hasMany(OffreEmploi::class);
+        return $this->hasMany(OffreEmploi::class, 'categorie_id');
     }
 }

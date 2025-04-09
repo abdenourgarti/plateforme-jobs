@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -12,9 +13,7 @@ require __DIR__.'/offre.php';
 require __DIR__.'/admin.php';
 
 
-Route::get('/', function () {
-    return inertia('Home');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 // Routes d'authentification

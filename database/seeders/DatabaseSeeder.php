@@ -15,14 +15,15 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RoleSeeder::class,
-            DomaineSeeder::class,
             CategorieSeeder::class,
+            DomaineSeeder::class,
+            CantonSeeder::class,
             EntrepriseSeeder::class,
             OffreEmploiSeeder::class,
         ]);
 
         // $admin = User::factory()->create([
-        //     // 'name' => 'admin',
+        //     'name' => 'admin',
         //     'email' => 'admin@gmail.com',
         // ]);
 
