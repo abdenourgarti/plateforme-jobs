@@ -21,6 +21,7 @@ class OffreEmploiController extends Controller
      */
     public function index(Request $request)
     {
+
         $query = OffreEmploi::where('status', true)
             ->where('date_fin', '>=', now())
             ->with('entreprise', 'categorie');
@@ -42,13 +43,16 @@ class OffreEmploiController extends Controller
                   ->orWhere('location', 'like', "%{$search}%");
             });
         }
-        
+
+        $typesoffres = OffreEmploi::distinct()->pluck('type_travail');
+                
         $offres = $query->latest()->paginate(10)->withQueryString();
         $categories = Categorie::where('is_active', true)->get();
         
         return inertia('client/JobPage', [
             'offres' => $offres,
             'categories' => $categories,
+            'typesoffres'=>$typesoffres,
             'filters' => $request->only(['search', 'categorie', 'type_travail'])
         ]);
     }

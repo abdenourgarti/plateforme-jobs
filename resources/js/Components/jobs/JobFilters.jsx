@@ -1,32 +1,26 @@
-import { useEffect, useState } from "react";
+// resources/js/Components/Jobs/JobFilters.jsx
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
 
-const JobFilters = ({ selectedFilters, setSelectedFilters }) => {
-    const [categories, setCategories] = useState([]);
-    const [employmentTypes, setEmploymentTypes] = useState([]);
+const JobFilters = ({ selectedFilters, setSelectedFilters, employmentTypes, categories }) => {
     const [openSections, setOpenSections] = useState({ type: true, categories: true });
-
-    useEffect(() => {
-        fetch("/json/jobs.json")
-            .then((response) => response.json())
-            .then((data) => {
-                const allCategories = [...new Set(data.flatMap(job => job.categories))];
-                setCategories(allCategories);
-                const allTypes = [...new Set(data.map(job => job.type))];
-                setEmploymentTypes(allTypes);
-            })
-            .catch((error) => console.error("Error loading jobs:", error));
-    }, []);
 
     const handleFilterChange = (type, value) => {
         setSelectedFilters((prev) => {
-            const updatedFilters = { ...prev };
-            if (updatedFilters[type].includes(value)) {
-                updatedFilters[type] = updatedFilters[type].filter((item) => item !== value);
+            const updated = { ...prev };
+            const exists = updated[type].some(item =>
+                typeof item === 'object' ? item.id === value.id : item === value
+            );
+
+            if (exists) {
+                updated[type] = updated[type].filter(item =>
+                    typeof item === 'object' ? item.id !== value.id : item !== value
+                );
             } else {
-                updatedFilters[type] = [...updatedFilters[type], value];
+                updated[type] = [...updated[type], value];
             }
-            return updatedFilters;
+
+            return updated;
         });
     };
 
@@ -35,9 +29,9 @@ const JobFilters = ({ selectedFilters, setSelectedFilters }) => {
     };
 
     return (
-        <div className="w-1/4 flex flex-col bg-white p-6 rounded-lg ">
+        <div className="w-1/4 flex flex-col bg-white p-6 rounded-lg">
             <h2 className="text-xl font-bold mb-4">Filters</h2>
-            
+
             {/* Employment Type Filter */}
             <div className="mb-4">
                 <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("type")}>
@@ -54,7 +48,9 @@ const JobFilters = ({ selectedFilters, setSelectedFilters }) => {
                                     checked={selectedFilters.type.includes(type)}
                                     onChange={() => handleFilterChange("type", type)}
                                 />
-                                <span className={selectedFilters.type.includes(type) ? "text-red-500 font-semibold" : ""}>{type}</span>
+                                <span className={selectedFilters.type.includes(type) ? "text-red-500 font-semibold" : ""}>
+                                    {type}
+                                </span>
                             </label>
                         ))}
                     </div>
@@ -70,14 +66,19 @@ const JobFilters = ({ selectedFilters, setSelectedFilters }) => {
                 {openSections.categories && (
                     <div className="mt-2">
                         {categories.map((category) => (
-                            <label key={category} className="flex items-center mb-2 cursor-pointer">
+                            <label key={category.id} className="flex items-center mb-2 cursor-pointer">
                                 <input
                                     type="checkbox"
                                     className="mr-2"
-                                    checked={selectedFilters.categories.includes(category)}
+                                    checked={selectedFilters.categories.some((cat) => cat.id === category.id)}
                                     onChange={() => handleFilterChange("categories", category)}
                                 />
-                                <span className={selectedFilters.categories.includes(category) ? "text-red-500 font-semibold" : ""}>{category}</span>
+                                <span className={selectedFilters.categories.some((cat) => cat.id === category.id)
+                                    ? "text-red-500 font-semibold"
+                                    : ""}
+                                >
+                                    {category.designation}
+                                </span>
                             </label>
                         ))}
                     </div>
