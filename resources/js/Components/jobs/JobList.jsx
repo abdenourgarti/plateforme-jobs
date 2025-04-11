@@ -1,4 +1,5 @@
 // resources/js/Components/Jobs/JobList.jsx
+import entrepriseLogo from "/public/images/logos/pitch.png";
 const JobList = ({ jobs }) => {
     return (
         <div className="w-3/4 bg-white p-6 rounded-lg shadow-md">
@@ -10,7 +11,8 @@ const JobList = ({ jobs }) => {
                     <div key={job.id} className="border p-4 rounded-lg flex items-center justify-between mb-4">
                         <div className="flex items-center">
                             <img
-                                src={`${job.entreprise.logo}`}
+                                // src={`${job.entreprise.logo}`}
+                                src={entrepriseLogo}
                                 alt={job.entreprise.nom}
                                 className="w-12 h-12 mr-4"
                             />
