@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Entreprise;
 
 use App\Http\Controllers\Controller;
+use App\Models\Canton;
 use App\Models\Categorie;
 use App\Models\Entreprise;
 use App\Models\EntrepriseTechnologie;
@@ -19,9 +20,20 @@ class EntrepriseController extends Controller
     {
         $query = Entreprise::with('canton', 'domaine');
         
+        // Convertir les domaines en tableau d'entiers
+        $domaines = [];
+        if ($request->has('domaines')) {
+            // Gère les cas où domaines est un tableau ou une chaîne
+            if (is_array($request->domaines)) {
+                $domaines = array_map('intval', $request->domaines);
+            } elseif (is_string($request->domaines) && !empty($request->domaines)) {
+                $domaines = [intval($request->domaines)];
+            }
+        }
+        
         // Filtres
-        if ($request->filled('domaine')) {
-            $query->where('domaine_id', $request->domaine);
+        if (!empty($domaines)) {
+            $query->whereIn('domaine_id', $domaines);
         }
         
         if ($request->filled('canton')) {
@@ -37,13 +49,20 @@ class EntrepriseController extends Controller
             });
         }
         
-        $entreprises = $query->latest()->paginate(10)->withQueryString();
-        $categories = Categorie::where('is_active', true)->get();
+        // Limit to 8 per page as requested
+        $entreprises = $query->withCount('offresEmplois')->latest()->paginate(8)->withQueryString();
+        $allDomaines = Domaine::all();
+        $cantons = Canton::all();
         
         return inertia('client/Companies', [
             'entreprises' => $entreprises,
-            'categories' => $categories,
-            'filters' => $request->only(['search', 'domaine', 'canton'])
+            'domaines' => $allDomaines,
+            'cantons' => $cantons,
+            'filters' => [
+                'search' => $request->input('search', ''),
+                'canton' => $request->input('canton', ''),
+                'domaines' => $domaines // Assurez-vous que c'est un tableau d'entiers
+            ]
         ]);
     }
     
