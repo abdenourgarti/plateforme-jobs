@@ -1,0 +1,48 @@
+{
+    "applications": [
+      {
+        "id": 1,
+        "logo": "/path/to/nomad-logo.png",
+        "company": "Nomad",
+        "role": "Social Media Assistant",
+        "dateApplied": "20 Jan 2025",
+        "status": "In Review"
+      },
+      {
+        "id": 2,
+        "logo": "/path/to/udacity-logo.png",
+        "company": "Udacity",
+        "role": "Social Media Assistant",
+        "dateApplied": "20 Jan 2025",
+        "status": "Shortlisted"
+      },
+      {
+        "id": 3,
+        "logo": "/path/to/udacity-logo.png",
+        "company": "Udacity",
+        "role": "Social Media Assistant",
+        "dateApplied": "20 Jan 2025",
+        "status": "Shortlisted"
+      },
+      {
+        "id": 4,
+        "logo": "/path/to/udacity-logo.png",
+        "company": "Udacity",
+        "role": "Social Media Assistant",
+        "dateApplied": "20 Jan 2025",
+        "status": "Shortlisted"
+      },
+      {
+        "id": 5,
+        "logo": "/path/to/udacity-logo.png",
+        "company": "Udacity",
+        "role": "Social Media Assistant",
+        "dateApplied": "20 Jan 2025",
+        "status": "Shortlisted"
+      }
+      
+    ]
+    
+
+   
+  }

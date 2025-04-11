@@ -38,15 +38,15 @@ const Sidebar = () => {
           </Link>
 
           <Link
-            href="/admin/companyapp"
+            href="/admin/jobs"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admin/companyapp')
+              isActive('/admin/jobs')
                 ? 'bg-gray-200 text-orange-600  nav-link'
                 : 'hover:bg-gray-200'
             }`}
           >
             <Briefcase size={20} className="mr-3 text-icon" />
-            My Applications
+           Company profile
           </Link>
 
           <Link
@@ -58,20 +58,22 @@ const Sidebar = () => {
             }`}
           >
             <Search size={20} className="mr-3 text-icon" />
-            Find Jobs
+           All Applicants 
           </Link>
 
           <Link
-            href="/admin/browscompany"
+            href="/admin/users"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admin/browscompany')
+              isActive('/admin/users')
                 ? 'bg-gray-200 text-orange-600  nav-link'
                 : 'hover:bg-gray-200'
             }`}
           >
             <Users size={20} className="mr-3 text-icon" />
-            Browse Companies
+      job listing
           </Link>
+
+         
 
           <Link
             href="/admin/profile"
@@ -82,7 +84,7 @@ const Sidebar = () => {
             }`}
           >
             <UserCircle size={20} className="mr-3 text-icon" />
-            My Public Profile
+            My Schedule
           </Link>
         </div>
 

@@ -36,73 +36,112 @@ const LoginDetails = () => {
         This is your login information that you can update anytime.
       </p>
 
+      <div className='w-full bg-gray-300 rounded mt-4 mb-4 h-3'></div>
+
       {/* Update Email */}
       <div className="mt-6">
-        <h3 className="text-sm font-medium mb-2">Update Email</h3>
-        <p className="text-xs text-gray-500">
-          Update your email address to make sure it is safe.
-        </p>
-        <form onSubmit={handleEmailUpdate} className="mt-4">
-          <input
-            type="email"
-            placeholder="Enter your new email"
-            value={data.email}
-            onChange={(e) => setData('email', e.target.value)}
-            className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          />
-          {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
-          <button
-            type="submit"
-            disabled={processing}
-            className="mt-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
-          >
-            Update Email
-          </button>
-        </form>
-      </div>
+  <div className="flex flex-col sm:flex-row gap-6">
+    
+    {/* Left Section - Label */}
+    <div className="sm:w-1/4">
+      <h3 className="text-sm font-medium text-gray-800">Update Email</h3>
+      <p className="text-xs text-gray-500 mt-1">
+        Update your email address to make sure it is safe.
+      </p>
+    </div>
+
+    {/* Right Section - Form */}
+    <div className="sm:w-3/4">
+      <form onSubmit={handleEmailUpdate}>
+        <input
+          type="email"
+          placeholder="Enter your new email"
+          value={data.email}
+          onChange={(e) => setData('email', e.target.value)}
+          className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+        />
+        {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+
+        <button
+          type="submit"
+          disabled={processing}
+          className="mt-3 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+        >
+          {processing ? 'Updating...' : 'Update Email'}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+      <div className='w-full bg-gray-300 rounded mt-4 mb-4 h-3'></div>
 
       {/* Update Password */}
+
       <div className="mt-6">
-        <h3 className="text-sm font-medium mb-2">New Password</h3>
-        <p className="text-xs text-gray-500">
-          Manage your password to make sure it is safe.
-        </p>
-        <form onSubmit={handlePasswordUpdate} className="mt-4">
-          <label htmlFor="oldPassword" className="block text-sm font-medium text-gray-700">
-            Old Password
-          </label>
-          <input
-            type="password"
-            id="oldPassword"
-            placeholder="Enter your old password"
-            value={data.old_password}
-            onChange={(e) => setData('old_password', e.target.value)}
-            className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          />
-          {errors.old_password && <p className="text-red-500 text-xs">{errors.old_password}</p>}
+  <div className="flex flex-col sm:flex-row gap-6">
 
-          <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mt-4">
-            New Password
-          </label>
-          <input
-            type="password"
-            id="newPassword"
-            placeholder="Enter your new password"
-            value={data.new_password}
-            onChange={(e) => setData('new_password', e.target.value)}
-            className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          />
-          {errors.new_password && <p className="text-red-500 text-xs">{errors.new_password}</p>}
+    {/* Left Section - Label */}
+    <div className="sm:w-1/4">
+      <h3 className="text-sm font-medium text-gray-800">New Password</h3>
+      <p className="text-xs text-gray-500 mt-1">
+        Manage your password to make sure it is safe.
+      </p>
+    </div>
 
-          <button
-            type="submit"
-            disabled={processing}
-            className="mt-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
-          >
-            Change Password
-          </button>
-        </form>
-      </div>
+    {/* Right Section - Form */}
+    <div className="sm:w-3/4">
+      <form onSubmit={handlePasswordUpdate}>
+
+        {/* Old Password */}
+        <label htmlFor="oldPassword" className="block text-sm font-medium text-gray-700">
+          Old Password
+        </label>
+        <input
+          type="password"
+          id="oldPassword"
+          placeholder="Enter your old password"
+          value={data.old_password}
+          onChange={(e) => setData('old_password', e.target.value)}
+          className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+        />
+        {errors.old_password && (
+          <p className="text-red-500 text-xs mt-1">{errors.old_password}</p>
+        )}
+
+        {/* New Password */}
+        <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mt-4">
+          New Password
+        </label>
+        <input
+          type="password"
+          id="newPassword"
+          placeholder="Enter your new password"
+          value={data.new_password}
+          onChange={(e) => setData('new_password', e.target.value)}
+          className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+        />
+        {errors.new_password && (
+          <p className="text-red-500 text-xs mt-1">{errors.new_password}</p>
+        )}
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={processing}
+          className="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+        >
+          {processing ? 'Changing...' : 'Change Password'}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
 
       {/* Close Account */}
       <div className="mt-6 text-right">
