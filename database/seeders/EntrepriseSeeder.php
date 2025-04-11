@@ -25,7 +25,7 @@ class EntrepriseSeeder extends Seeder
 
         // Assurez-vous qu'il y a au moins 5 utilisateurs pour lier aux entreprises
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             Entreprise::create([
                 'user_id' => $users->random()->id,
                 'domaine_id' => $domaines->random()->id ?? null,
@@ -40,6 +40,7 @@ class EntrepriseSeeder extends Seeder
                 'facebook' => null,
                 'linkedin' => null,
                 'email' => "contact$@entreprise$i.com",
+                'canton_id' => rand(1, 20),
             ]);
         }
 
