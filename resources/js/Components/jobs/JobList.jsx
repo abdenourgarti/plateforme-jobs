@@ -1,9 +1,9 @@
 // resources/js/Components/Jobs/JobList.jsx
 import entrepriseLogo from "/public/images/logos/pitch.png";
+
 const JobList = ({ jobs }) => {
-    console.log(jobs)
     return (
-        <div className="w-3/4 bg-white p-6 rounded-lg shadow-md">
+        <div className="bg-white p-6 rounded-lg shadow-md w-full">
             <h2 className="text-xl font-bold mb-4">All Jobs ({jobs.length})</h2>
             {jobs.length === 0 ? (
                 <p className="text-gray-500">No jobs found for the selected filters.</p>
@@ -26,11 +26,16 @@ const JobList = ({ jobs }) => {
                                     <span className="text-sm bg-gray-200 px-2 py-1 rounded mr-2">
                                         {job.categorie.designation}
                                     </span>
+                                    <span className="text-sm bg-gray-200 px-2 py-1 rounded">
+                                        {job.type_travail}
+                                    </span>
                                 </div>
                             </div>
                         </div>
 
-                        <button className="bg-red-500 text-white px-4 py-2 rounded">Apply</button>
+                        <button className="bg-red-500 text-white px-4 py-2 rounded">
+                            Apply
+                        </button>
                     </div>
                 ))
             )}

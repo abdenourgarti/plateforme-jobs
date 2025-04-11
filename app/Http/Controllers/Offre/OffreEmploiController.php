@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Offre;
 
 use App\Http\Controllers\Controller;
+use App\Models\Canton;
 use App\Models\OffreEmploi;
 use App\Models\OffreEmploiCompetence;
 use App\Models\OffreEmploiBenefit;
@@ -21,39 +22,86 @@ class OffreEmploiController extends Controller
      */
     public function index(Request $request)
     {
-
         $query = OffreEmploi::where('status', true)
             ->where('date_fin', '>=', now())
             ->with('entreprise', 'categorie');
         
-        // Filtres
-        if ($request->filled('categorie')) {
-            $query->where('categorie_id', $request->categorie);
+        // Traitement des catégories (peut être multiple)
+        $categories = [];
+        if ($request->has('categorie')) {
+            // Gère les cas où categorie est un tableau ou une chaîne
+            if (is_array($request->categorie)) {
+                $categories = array_map('intval', $request->categorie);
+            } elseif (is_string($request->categorie) && !empty($request->categorie)) {
+                $categories = [intval($request->categorie)];
+            }
         }
         
-        if ($request->filled('type_travail')) {
-            $query->where('type_travail', $request->type_travail);
+        // Appliquer le filtre de catégories s'il y en a
+        if (!empty($categories)) {
+            $query->whereIn('categorie_id', $categories);
         }
         
+        // Traitement des types de travail (peut être multiple)
+        $typeTravail = [];
+        if ($request->has('type_travail')) {
+            if (is_array($request->type_travail)) {
+                $typeTravail = $request->type_travail;
+                if (!empty($typeTravail)) {
+                    $query->whereIn('type_travail', $typeTravail);
+                }
+            } else {
+                $typeTravail = [$request->type_travail];
+                $query->where('type_travail', $request->type_travail);
+            }
+        }
+        
+        $search = '';
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('titre', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('location', 'like', "%{$search}%");
+                  ->orWhere('description', 'like', "%{$search}%");
             });
         }
-
+    
+        // Filtre par canton/location
+        if ($request->filled('location')) {
+            $location = $request->location;
+            $query->where('location', $location);
+        }
+    
         $typesoffres = OffreEmploi::distinct()->pluck('type_travail');
+        
+        // Récupération des cantons depuis la base de données
+        $cantons = Canton::select('nom')->get();
+        
+        // Vérifiez si des filtres sont appliqués
+        $filtresAppliques = !empty($categories) || !empty($typeTravail) || !empty($search) || $request->filled('location');
+        
+        // Si aucun filtre n'est appliqué ou si tous les filtres ont été décochés, forcez page=1
+        if (!$filtresAppliques || 
+            ($request->has('categorie') && empty($categories) && 
+             $request->has('type_travail') && empty($typeTravail) && 
+             $request->has('search') && empty($search) &&
+             $request->has('location') && empty($request->location))) {
+            $request->merge(['page' => 1]);
+        }
                 
         $offres = $query->latest()->paginate(10)->withQueryString();
-        $categories = Categorie::where('is_active', true)->get();
+        $allCategories = Categorie::where('is_active', true)->get();
         
         return inertia('client/JobPage', [
             'offres' => $offres,
-            'categories' => $categories,
-            'typesoffres'=>$typesoffres,
-            'filters' => $request->only(['search', 'categorie', 'type_travail'])
+            'categories' => $allCategories,
+            'typesoffres' => $typesoffres,
+            'cantons' => $cantons,
+            'filters' => [
+                'search' => $search,
+                'categorie' => $categories,
+                'type_travail' => $typeTravail,
+                'location' => $request->input('location', '')
+            ]
         ]);
     }
     
