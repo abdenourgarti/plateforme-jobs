@@ -45,188 +45,165 @@ const MyProfile = () => {
         This is your personal information that you can update anytime.
       </p>
 
+      <div className='w-full bg-gray-300 rounded mt-4 mb-4 h-3'></div>
+
       {/* Profile Photo */}
-      <div className="mt-4">
-        <h3 className="text-sm font-medium mb-2">Profile Photo</h3>
-        <p className="text-xs text-gray-500">
-          This image will be shown publicly as your profile picture. It will help recruiters recognize you!
-        </p>
-        <div className="mt-2 border-2 border-dashed border-gray-300 rounded-md p-6 flex items-center justify-center cursor-pointer">
-          {data.profilePhoto ? (
-            <img
-              src={URL.createObjectURL(data.profilePhoto)} // Preview uploaded image
-              alt="Profile"
-              className="w-32 h-32 object-cover rounded-full"
-            />
-          ) : (
-            <>
-              <Camera size={32} className="text-gray-400 mb-2" /> {/* Lucide Icon */}
-              <p className="text-sm text-gray-500 text-center">
-                Click to replace or drag and drop<br />
-                SVG, PNG, JPG or GIF (max. 400 x 400px)
-              </p>
-            </>
-          )}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileUpload}
-            className="hidden"
-            id="profile-photo-input"
-          />
-          <label htmlFor="profile-photo-input" className="cursor-pointer">
-            <button className="bg-white hover:bg-gray-100 text-gray-500 border border-gray-300 rounded-full p-2 mt-2">
-              Upload Photo
-            </button>
-          </label>
-        </div>
-        {errors.profilePhoto && <p className="text-red-500 text-xs">{errors.profilePhoto}</p>}
-      </div>
+      <div className="mt-4 flex items-start gap-8">
+  {/* Left Section – Text */}
+  <div className="w-1/2">
+    <h3 className="text-sm font-medium mb-2">Profile Photo</h3>
+    <p className="text-lg text-gray-500">
+      This image will be shown publicly <br/> as your profile picture <br/>It will help recruiters recognize you!
+    </p>
+  </div>
+
+
+
+  {/* Right Section – Upload Box */}
+  <div className="w-1/2">
+    <div className="border-2 border-dashed border-red-600 rounded-md p-6 flex flex-col items-center justify-center cursor-pointer text-center">
+      {data.profilePhoto ? (
+        <img
+          src={URL.createObjectURL(data.profilePhoto)}
+          alt="Profile"
+          className="w-32 h-32 object-cover rounded-full"
+        />
+      ) : (
+        <>
+          <Camera size={32} className="text-gray-400 mb-2" />
+          <p className="text-sm text-gray-500">
+            Click to replace or drag and drop<br />
+            SVG, PNG, JPG or GIF (max. 400 x 400px)
+          </p>
+        </>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileUpload}
+        className="hidden"
+        id="profile-photo-input"
+      />
+      <label htmlFor="profile-photo-input" className="cursor-pointer">
+        <button className="bg-white hover:bg-gray-100 text-gray-500 border border-gray-300 rounded-full p-2 mt-2">
+          Upload Photo
+        </button>
+      </label>
+    </div>
+
+    {errors.profilePhoto && (
+      <p className="text-red-500 text-xs mt-2">{errors.profilePhoto}</p>
+    )}
+  </div>
+</div>
+
+
+
+<div className='w-full bg-gray-300 rounded mt-4 mb-4 h-3'></div>
 
       {/* Personal Details */}
-      <form onSubmit={handleSubmit}>
-        <div className="mt-6">
-          <h3 className="text-sm font-medium mb-2">Personal Details</h3>
+     
+      <form onSubmit={handleSubmit} className="mt-6">
+  <div className="flex flex-col sm:flex-row gap-6">
+    
+    {/* Left Section - Label */}
+    <div className="sm:w-1/4">
+      <h3 className="text-sm font-medium text-gray-800">Personal Details</h3>
+    </div>
 
-          {/* Full Name */}
-          <div className="mb-2">
-            <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
-              Full Name *
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              value={data.fullName}
-              onChange={handleChange}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-            {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName}</p>}
-          </div>
+    {/* Right Section - Form Fields */}
+    <div className="sm:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-4">
 
-          {/* Phone Number */}
-          <div className="mb-2">
-            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
-              Phone Number *
-            </label>
-            <input
-              type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={data.phoneNumber}
-              onChange={handleChange}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-            {errors.phoneNumber && <p className="text-red-500 text-xs">{errors.phoneNumber}</p>}
-          </div>
+      {/* Full Name */}
+      <div>
+        <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">Full Name *</label>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          value={data.fullName}
+          onChange={handleChange}
+          className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
+        {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName}</p>}
+      </div>
 
-          {/* Email */}
-          <div className="mb-2">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email *
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={data.email}
-              onChange={handleChange}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-            {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
-          </div>
+      {/* Email */}
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email *</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={data.email}
+          onChange={handleChange}
+          className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
+        {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+      </div>
 
-          {/* Date of Birth */}
-          <div className="mb-2">
-            <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700">
-              Date of Birth *
-            </label>
-            <input
-              type="date"
-              id="dateOfBirth"
-              name="dateOfBirth"
-              value={data.dateOfBirth}
-              onChange={handleChange}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-            {errors.dateOfBirth && <p className="text-red-500 text-xs">{errors.dateOfBirth}</p>}
-          </div>
+      {/* Phone Number */}
+      <div>
+        <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">Phone Number *</label>
+        <input
+          type="tel"
+          id="phoneNumber"
+          name="phoneNumber"
+          value={data.phoneNumber}
+          onChange={handleChange}
+          className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
+        {errors.phoneNumber && <p className="text-red-500 text-xs">{errors.phoneNumber}</p>}
+      </div>
 
-          {/* Gender */}
-          <div className="mb-2">
-            <label htmlFor="gender" className="block text-sm font-medium text-gray-700">
-              Gender *
-            </label>
-            <select
-              id="gender"
-              name="gender"
-              value={data.gender}
-              onChange={handleChange}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-            {errors.gender && <p className="text-red-500 text-xs">{errors.gender}</p>}
-          </div>
-        </div>
+      {/* Date of Birth */}
+      <div>
+        <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700">Date of Birth *</label>
+        <input
+          type="date"
+          id="dateOfBirth"
+          name="dateOfBirth"
+          value={data.dateOfBirth}
+          onChange={handleChange}
+          className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
+        {errors.dateOfBirth && <p className="text-red-500 text-xs">{errors.dateOfBirth}</p>}
+      </div>
 
-        {/* Account Type */}
-        <div className="mt-6">
-          <h3 className="text-sm font-medium mb-2">Account Type</h3>
-          <p className="text-xs text-gray-500">
-            You can update your account type
-          </p>
-          <div className="mt-2">
-            {/* Job Seeker */}
-            <div className="flex items-center mb-2">
-              <input
-                id="job_seeker"
-                name="accountType"
-                type="radio"
-                value="job_seeker"
-                checked={data.accountType === 'job_seeker'}
-                onChange={handleChange}
-                className="mr-2"
-              />
-              <label htmlFor="job_seeker" className="text-sm text-gray-700">
-                Job Seeker
-              </label>
-              <p className="ml-2 text-xs text-gray-500">Looking for a job</p>
-            </div>
+      {/* Gender */}
+      <div>
+        <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender *</label>
+        <select
+          id="gender"
+          name="gender"
+          value={data.gender}
+          onChange={handleChange}
+          className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        >
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        {errors.gender && <p className="text-red-500 text-xs">{errors.gender}</p>}
+      </div>
+    </div>
+  </div>
 
-            {/* Employer */}
-            <div className="flex items-center">
-              <input
-                id="employer"
-                name="accountType"
-                type="radio"
-                value="employer"
-                checked={data.accountType === 'employer'}
-                onChange={handleChange}
-                className="mr-2"
-              />
-              <label htmlFor="employer" className="text-sm text-gray-700">
-                Employer
-              </label>
-              <p className="ml-2 text-xs text-gray-500">Hiring, sourcing candidates, or posting jobs</p>
-            </div>
-          </div>
-          {errors.accountType && <p className="text-red-500 text-xs">{errors.accountType}</p>}
-        </div>
+  <div className='w-full bg-gray-300 rounded mt-4 mb-4 h-3'></div>
 
-        {/* Save Changes Button */}
-        <div className="mt-6 text-right">
-          <button
-            type="submit"
-            disabled={processing}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
-          >
-            {processing ? 'Saving...' : 'Save Profile'}
-          </button>
-        </div>
-      </form>
+
+  {/* Save Button */}
+  <div className="mt-6 text-right">
+    <button
+      type="submit"
+      disabled={processing}
+      className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+    >
+      {processing ? 'Saving...' : 'Save Profile'}
+    </button>
+  </div>
+</form>
+
     </div>
   );
 };

@@ -92,6 +92,14 @@ Route::get('/admin/companydetail', function () {
 
 
 
+Route::get('/admin/browscompany', function () {
+    return Inertia::render('admin/BrowsCompany');
+})->name('admin.browsCompany');
+
+Route::get('/admin/companyapp', function () {
+    return Inertia::render('admin/CompanyApp');
+})->name('admin.companyapp');
+
 
 Route::get('/admin/logindetails', function () {
     return Inertia::render('admin/LoginDetails');

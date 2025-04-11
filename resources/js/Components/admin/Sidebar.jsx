@@ -38,9 +38,9 @@ const Sidebar = () => {
           </Link>
 
           <Link
-            href="/admin/jobs"
+            href="/admin/companyapp"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admin/jobs')
+              isActive('/admin/companyapp')
                 ? 'bg-gray-200 text-orange-600  nav-link'
                 : 'hover:bg-gray-200'
             }`}
@@ -62,9 +62,9 @@ const Sidebar = () => {
           </Link>
 
           <Link
-            href="/admin/users"
+            href="/admin/browscompany"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admin/users')
+              isActive('/admin/browscompany')
                 ? 'bg-gray-200 text-orange-600  nav-link'
                 : 'hover:bg-gray-200'
             }`}
