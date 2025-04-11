@@ -4,6 +4,7 @@ import JobSearchForm from "@/Components/Jobs/JobSearchForm";
 import JobList from "@/Components/Jobs/JobList";
 import JobFilters from "@/Components/Jobs/JobFilters";
 import { Link } from "@inertiajs/react";
+import Pagination from "../../Components/companies/Pagination";
 
 const JobPage = (props) => {
     const [jobs, setJobs] = useState([]);
@@ -50,7 +51,7 @@ const JobPage = (props) => {
                 <JobList jobs={getFilteredJobs()} />
             </div>
             <div>
-                {props.offres.length && (
+                {props.offres && props.offres.data && props.offres.data.length > 0 && (
                     <div className="flex flex-col items-center mt-6 mb-8">
                         {props.offres.last_page > 1 && (
                             <Pagination
@@ -60,7 +61,7 @@ const JobPage = (props) => {
                             />
                         )}
                         <div className="text-gray-600 mt-2">
-                            Showing {props.offres.data.length} of {props.offres.total} companies
+                            Showing {props.offres.data.length} of {props.offres.total} jobs
                         </div>
                     </div>
                 )}
