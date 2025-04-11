@@ -16,10 +16,13 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: 4px;
-    background-color: transparent;
+    width: 8px;
+    background-color: red;
     transition: background-color 0.3s ease;
+ 
   }
+
+  
   
   .nav-link:hover::before {
     background-color: #ef4444;

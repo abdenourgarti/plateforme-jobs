@@ -1,46 +1,48 @@
-import React from 'react';
-import { Link } from '@inertiajs/react';
+import React from 'react'
+import { Link } from '@inertiajs/react'
 import {
   Home,
-  ClipboardList,
   Briefcase,
-  Building,
+  Search,
   Users,
   UserCircle,
   Settings,
-  Search,
   HelpCircle,
   LogOut,
-} from "lucide-react";
+} from 'lucide-react'
 
 const Sidebar = () => {
   const isActive = (path) => {
-    return window.location.pathname.startsWith(path);
-  };
+    return window.location.pathname.startsWith(path)
+  }
 
   return (
-    <div className="w-64 bg-slate-100  h-screen">
-      <div className="p-4  mt-8">
+    <div className="w-64 bg-slate-100 h-screen">
+      <div className="p-4 mt-8">
         <h2 className="text-xl font-semibold text-red-500"></h2>
       </div>
 
-      <nav className="py-4 mt-9 bg-slate-100  rounded-lg">
+      <nav className="py-4 mt-9 bg-slate-100 rounded-lg">
         {/* Main Navigation */}
         <div>
           <Link
             href="/admin/dashboard"
-            className={`nav-link flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out ${
-              isActive('/admin/dashboard') ? 'active' : ''
+            className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
+              isActive('/admin/dashboard')
+                ? 'bg-gray-200 text-orange-600 nav-link'
+                : 'hover:bg-gray-200'
             }`}
           >
             <Home size={20} className="mr-3 text-icon" />
-            Dashboard
+            <p>Dashboard</p>
           </Link>
 
           <Link
             href="/admin/jobs"
-            className={`nav-link flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out ${
-              isActive('/admin/jobs') ? 'active' : ''
+            className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
+              isActive('/admin/jobs')
+                ? 'bg-gray-200 text-orange-600  nav-link'
+                : 'hover:bg-gray-200'
             }`}
           >
             <Briefcase size={20} className="mr-3 text-icon" />
@@ -49,8 +51,10 @@ const Sidebar = () => {
 
           <Link
             href="/admin/findjob"
-            className={`nav-link flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out ${
-              isActive('/admin/findjob') ? 'active' : ''
+            className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
+              isActive('/admin/findjob')
+                ? 'bg-gray-200 text-orange-600  nav-link'
+                : 'hover:bg-gray-200'
             }`}
           >
             <Search size={20} className="mr-3 text-icon" />
@@ -59,8 +63,10 @@ const Sidebar = () => {
 
           <Link
             href="/admin/users"
-            className={`nav-link flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out ${
-              isActive('/admin/users') ? 'active' : ''
+            className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
+              isActive('/admin/users')
+                ? 'bg-gray-200 text-orange-600  nav-link'
+                : 'hover:bg-gray-200'
             }`}
           >
             <Users size={20} className="mr-3 text-icon" />
@@ -69,8 +75,10 @@ const Sidebar = () => {
 
           <Link
             href="/admin/profile"
-            className={`nav-link flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out ${
-              isActive('/admin/profile') ? 'active' : ''
+            className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
+              isActive('/admin/profile')
+                ? 'bg-gray-200 text-orange-600  nav-link'
+                : 'hover:bg-gray-200'
             }`}
           >
             <UserCircle size={20} className="mr-3 text-icon" />
@@ -85,8 +93,10 @@ const Sidebar = () => {
 
           <Link
             href="/admin/settings"
-            className={`nav-link flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out ${
-              isActive('/admin/settings') ? 'active' : ''
+            className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
+              isActive('/admin/settings')
+                ? 'bg-gray-200 text-orange-600  nav-link'
+                : 'hover:bg-gray-200'
             }`}
           >
             <Settings size={20} className="mr-3 text-icon" />
@@ -95,25 +105,44 @@ const Sidebar = () => {
 
           <Link
             href="/admin/help-center"
-            className={`nav-link flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out ${
-              isActive('/admin/help-center') ? 'active' : ''
+            className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
+              isActive('/admin/help-center')
+                ? 'bg-gray-200 text-red-500 nav-link'
+                : 'hover:bg-gray-200'
             }`}
           >
             <HelpCircle size={20} className="mr-3 text-icon" />
             Help Center
           </Link>
 
-          <Link
-            href="/logout"
-            className="flex items-center px-4 py-2 text-red-600 hover:bg-red-50 rounded-md transition duration-300 ease-in-out w-full"
-          >
-            <LogOut size={20} className="mr-3 text-red-600" />
-            Logout
-          </Link>
+          <div className="w-56 h-[22px] bg-slate-300 rounded mx-4"></div>
+
+          {/* Footer */}
+          <div className="mt-64 p-4 border-t border-slate-200">
+            <Link
+              href="/logout"
+              className="flex items-center px-4 py-2 text-red-600 hover:bg-red-100 rounded-md transition duration-300 ease-in-out w-full"
+            >
+              <LogOut size={20} className="mr-3 text-red-600" />
+              Logout
+            </Link>
+
+            <div className="flex items-center space-x-3 mt-4">
+              <img
+                src="https://example.com/avatar.jpg"
+                alt="Profile"
+                className="w-10 h-10 rounded-full"
+              />
+              <div>
+                <p className="font-semibold">Jake Gyll</p>
+                <p className="text-sm text-gray-500">jakegyll@email.com</p>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
