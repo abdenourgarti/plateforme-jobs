@@ -12,7 +12,7 @@ const JobPage = (props) => {
 
     const [selectedFilters, setSelectedFilters] = useState({
         type: [],
-        categories: []
+        categories: [],
     });
 
     useEffect(() => {
@@ -48,6 +48,22 @@ const JobPage = (props) => {
                     setSelectedFilters={setSelectedFilters}
                 />
                 <JobList jobs={getFilteredJobs()} />
+            </div>
+            <div>
+                {props.offres.length && (
+                    <div className="flex flex-col items-center mt-6 mb-8">
+                        {props.offres.last_page > 1 && (
+                            <Pagination
+                                links={props.offres.links}
+                                current={props.offres.current_page}
+                                total={props.offres.last_page}
+                            />
+                        )}
+                        <div className="text-gray-600 mt-2">
+                            Showing {props.offres.data.length} of {props.offres.total} companies
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

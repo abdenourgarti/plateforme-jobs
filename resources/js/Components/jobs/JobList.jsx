@@ -1,6 +1,7 @@
 // resources/js/Components/Jobs/JobList.jsx
 import entrepriseLogo from "/public/images/logos/pitch.png";
 const JobList = ({ jobs }) => {
+    console.log(jobs)
     return (
         <div className="w-3/4 bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-bold mb-4">All Jobs ({jobs.length})</h2>
