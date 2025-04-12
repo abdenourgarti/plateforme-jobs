@@ -194,8 +194,8 @@ class OffreEmploiController extends Controller
      */
     public function store(Request $request)
     {
-        dd('marche');
         $entreprise = Auth::user()->entreprise;
+        
         
         // Valider les données de base de l'offre
         $validatedData = $request->validate([

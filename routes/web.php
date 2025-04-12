@@ -75,17 +75,6 @@ Route::get('/admincompany/settings', function () {
 })->name('admincompany.Settings');
 
 
-Route::get('/admincompany/postjob', function () {
-
-    $categories = Categorie::all(); 
-    $employmentTypes = OffreEmploi::select('type_travail')->distinct()->get(); 
-
-    return Inertia::render('AdminCompany/PostJob', [
-        'categories' => $categories,
-        'employmentTypes' => $employmentTypes, 
-    ]);
-})->name('admincompany.postjob');
-
 
 
 

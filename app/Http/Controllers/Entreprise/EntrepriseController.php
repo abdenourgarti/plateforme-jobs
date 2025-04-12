@@ -8,6 +8,7 @@ use App\Models\Categorie;
 use App\Models\Entreprise;
 use App\Models\EntrepriseTechnologie;
 use App\Models\Domaine;
+use App\Models\OffreEmploi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -117,6 +118,17 @@ class EntrepriseController extends Controller
             //     ]
             // ]
         );
+    }
+
+    public function addOffre()
+    {
+        $categories = Categorie::all(); 
+        $employmentTypes = OffreEmploi::select('type_travail')->distinct()->get(); 
+
+        return Inertia::render('AdminCompany/PostJob', [
+            'categories' => $categories,
+            'employmentTypes' => $employmentTypes, 
+        ]);
     }
 
     public function profile()
