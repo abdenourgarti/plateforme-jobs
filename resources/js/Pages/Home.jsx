@@ -35,8 +35,8 @@ const Home = (props) => {
         imageSrc="/images/dashboard-example-applify.png" // Replace with actual path
       />
 
-      <FeaturedJobs />
-      <LatestJobs />
+      <FeaturedJobs jobs={props.latestJobsByCategory}/>
+      <LatestJobs jobs={props.latestJobs}/>
 
     </div>
   );

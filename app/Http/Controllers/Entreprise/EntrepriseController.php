@@ -79,10 +79,10 @@ class EntrepriseController extends Controller
         
         return inertia('client/CompanyDetails', [
             'entreprise' => $entreprise,
-            'offres' => $entreprise->offres()
+            'offres' => $entreprise->offresEmplois()
                 ->with('entreprise', 'categorie')
                 ->where('entreprise_id', $entreprise->id)
-                ->andWhere('status', true)
+                ->where('status', true) 
                 ->latest()
                 ->take(5)
                 ->get(),

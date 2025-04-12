@@ -3,7 +3,7 @@ import { Facebook, Twitter, Linkedin } from "lucide-react";
 
 const CompanyProfile = ({ company }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 container px-44 p-6 bg-white rounded-lg shadow-md">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 container mx-auto px-4 md:px-44 p-6 bg-white rounded-lg shadow-md my-6">
       {/* Left Side */}
       <div className="md:col-span-2 space-y-6">
         {/* Company Profile */}
@@ -15,7 +15,7 @@ const CompanyProfile = ({ company }) => {
         {/* Contact Section */}
         <div>
           <h3 className="text-xl font-semibold">Contact</h3>
-          <div className="flex space-x-4 mt-2">
+          <div className="flex flex-wrap gap-2 mt-2">
             {company.social_links?.twitter && (
               <a
                 href={company.social_links.twitter}
@@ -49,7 +49,8 @@ const CompanyProfile = ({ company }) => {
           </div>
         </div>
 
-        {/* Image Gallery */}
+        {/* Image Gallery - Note: Currently not implemented in your database */}
+        
         <div className="grid grid-cols-2 gap-4">
           {company.gallery?.length > 0 ? (
             company.gallery.map((img, index) => (
@@ -64,6 +65,7 @@ const CompanyProfile = ({ company }) => {
             <p className="text-gray-600">No images available.</p>
           )}
         </div>
+        
       </div>
 
       {/* Right Side */}
@@ -87,13 +89,9 @@ const CompanyProfile = ({ company }) => {
         {/* Office Locations */}
         <div>
           <h3 className="text-xl font-semibold">Office Locations</h3>
-          <p className="text-gray-600 mt-2">Operating in {company.locations?.length || 0} countries.</p>
+          <p className="text-gray-600 mt-2">Operating in {company.locations?.length || 0} locations.</p>
           <ul className="list-disc pl-4 text-gray-700">
-            {company.locations?.length > 0 ? (
-              company.locations.map((loc, index) => <li key={index}>{loc}</li>)
-            ) : (
-              <p className="text-gray-600">No locations listed.</p>
-            )}
+            <li>{company.locations}</li>            
           </ul>
         </div>
       </div>
