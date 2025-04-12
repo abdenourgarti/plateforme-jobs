@@ -1,11 +1,16 @@
 import React from 'react'
 import { Link } from '@inertiajs/react'
 import {
-  Home,
+
   Briefcase,
   Search,
   Users,
   UserCircle,
+  Home,
+  Building,
+  Users2,
+  Clipboard,
+  Calendar,
   Settings,
   HelpCircle,
   LogOut,
@@ -26,9 +31,9 @@ const Sidebar = () => {
         {/* Main Navigation */}
         <div>
           <Link
-            href="/admin/dashboard"
+            href="/admincompany/dashboard"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admin/dashboard')
+              isActive('/admincompany/dashboard')
                 ? 'bg-gray-200 text-orange-600 nav-link'
                 : 'hover:bg-gray-200'
             }`}
@@ -38,52 +43,52 @@ const Sidebar = () => {
           </Link>
 
           <Link
-            href="/admin/jobs"
+            href="/admincompany/companyprofil"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admin/jobs')
+              isActive('/admincompany/companyprofil')
                 ? 'bg-gray-200 text-orange-600  nav-link'
                 : 'hover:bg-gray-200'
             }`}
           >
-            <Briefcase size={20} className="mr-3 text-icon" />
+            <Building size={20} className="mr-3 text-icon" />
            Company profile
           </Link>
 
           <Link
-            href="/admin/findjob"
+            href=""
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
               isActive('/admin/findjob')
                 ? 'bg-gray-200 text-orange-600  nav-link'
                 : 'hover:bg-gray-200'
             }`}
           >
-            <Search size={20} className="mr-3 text-icon" />
+            <Users2 size={20} className="mr-3 text-icon" />
            All Applicants 
           </Link>
 
           <Link
-            href="/admin/users"
+            href="/admincompany/postjob"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admin/users')
+              isActive('/admincompany/postjob')
                 ? 'bg-gray-200 text-orange-600  nav-link'
                 : 'hover:bg-gray-200'
             }`}
           >
-            <Users size={20} className="mr-3 text-icon" />
+            <Clipboard size={20} className="mr-3 text-icon" />
       job listing
           </Link>
 
          
 
           <Link
-            href="/admin/profile"
+            href="admin/user"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admin/profile')
+              isActive('admin/user')
                 ? 'bg-gray-200 text-orange-600  nav-link'
                 : 'hover:bg-gray-200'
             }`}
           >
-            <UserCircle size={20} className="mr-3 text-icon" />
+            <Calendar size={20} className="mr-3 text-icon" />
             My Schedule
           </Link>
         </div>

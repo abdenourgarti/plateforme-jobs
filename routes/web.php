@@ -79,6 +79,14 @@ Route::get('/admincompany/postjob', function () {
 })->name('admincompany.postjob');
 
 
+
+Route::get('/admincompany/companyprofil', function () {
+    return Inertia::render('AdminCompany/CompanyProfil');
+})->name('admincompany.CompanyProfil');
+
+
+
+
 Route::get('/admin/findjob', function () {
     return Inertia::render('admin/FindJob');
 })->name('admin.findjob');
