@@ -61,8 +61,8 @@ export default function JobSearchForm({ cantons = [], filters = {} }) {
                     >
                         <option value="">All Cantons</option>
                         {cantons.map((canton) => (
-                            <option key={canton.id || canton.nom} value={canton.code || canton.nom}>
-                                {canton.nom || canton.name}
+                            <option key={canton.id } value={canton.id }>
+                                {canton.nom }
                             </option>
                         ))}
                     </select>

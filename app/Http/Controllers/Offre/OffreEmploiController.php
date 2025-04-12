@@ -20,90 +20,188 @@ class OffreEmploiController extends Controller
     /**
      * Afficher la liste des offres d'emploi publiques
      */
-    public function index(Request $request)
-    {
-        $query = OffreEmploi::where('status', true)
-            ->where('date_fin', '>=', now())
-            ->with('entreprise', 'categorie');
+    // public function index(Request $request)
+    // {
+    //     $query = OffreEmploi::where('status', true)
+    //         ->where('date_fin', '>=', now())
+    //         ->with('entreprise', 'categorie');
         
-        // Traitement des catégories (peut être multiple)
-        $categories = [];
-        if ($request->has('categorie')) {
-            // Gère les cas où categorie est un tableau ou une chaîne
-            if (is_array($request->categorie)) {
-                $categories = array_map('intval', $request->categorie);
-            } elseif (is_string($request->categorie) && !empty($request->categorie)) {
-                $categories = [intval($request->categorie)];
-            }
-        }
+    //     // Traitement des catégories (peut être multiple)
+    //     $categories = [];
+    //     if ($request->has('categorie')) {
+    //         // Gère les cas où categorie est un tableau ou une chaîne
+    //         if (is_array($request->categorie)) {
+    //             $categories = array_map('intval', $request->categorie);
+    //         } elseif (is_string($request->categorie) && !empty($request->categorie)) {
+    //             $categories = [intval($request->categorie)];
+    //         }
+    //     }
         
-        // Appliquer le filtre de catégories s'il y en a
-        if (!empty($categories)) {
-            $query->whereIn('categorie_id', $categories);
-        }
+    //     // Appliquer le filtre de catégories s'il y en a
+    //     if (!empty($categories)) {
+    //         $query->whereIn('categorie_id', $categories);
+    //     }
         
-        // Traitement des types de travail (peut être multiple)
-        $typeTravail = [];
-        if ($request->has('type_travail')) {
-            if (is_array($request->type_travail)) {
-                $typeTravail = $request->type_travail;
-                if (!empty($typeTravail)) {
-                    $query->whereIn('type_travail', $typeTravail);
-                }
-            } else {
-                $typeTravail = [$request->type_travail];
-                $query->where('type_travail', $request->type_travail);
-            }
-        }
+    //     // Traitement des types de travail (peut être multiple)
+    //     $typeTravail = [];
+    //     if ($request->has('type_travail')) {
+    //         if (is_array($request->type_travail)) {
+    //             $typeTravail = $request->type_travail;
+    //             if (!empty($typeTravail)) {
+    //                 $query->whereIn('type_travail', $typeTravail);
+    //             }
+    //         } else {
+    //             $typeTravail = [$request->type_travail];
+    //             $query->where('type_travail', $request->type_travail);
+    //         }
+    //     }
         
-        $search = '';
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('titre', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
-            });
-        }
+    //     $search = '';
+    //     if ($request->filled('search')) {
+    //         $search = $request->search;
+    //         $query->where(function($q) use ($search) {
+    //             $q->where('titre', 'like', "%{$search}%")
+    //               ->orWhere('description', 'like', "%{$search}%");
+    //         });
+    //     }
     
-        // Filtre par canton/location
-        if ($request->filled('location')) {
-            $location = $request->location;
-            $query->where('location', $location);
-        }
+    //     // Filtre par canton/location
+    //     if ($request->filled('location')) {
+    //         $location = $request->location;
+    //         $query->where('location', $location);
+    //     }
     
-        $typesoffres = OffreEmploi::distinct()->pluck('type_travail');
+    //     $typesoffres = OffreEmploi::distinct()->pluck('type_travail');
         
-        // Récupération des cantons depuis la base de données
-        $cantons = Canton::select('nom')->get();
+    //     // Récupération des cantons depuis la base de données
+    //     $cantons = Canton::all();
         
-        // Vérifiez si des filtres sont appliqués
-        $filtresAppliques = !empty($categories) || !empty($typeTravail) || !empty($search) || $request->filled('location');
+    //     // Vérifiez si des filtres sont appliqués
+    //     $filtresAppliques = !empty($categories) || !empty($typeTravail) || !empty($search) || $request->filled('location');
         
-        // Si aucun filtre n'est appliqué ou si tous les filtres ont été décochés, forcez page=1
-        if (!$filtresAppliques || 
-            ($request->has('categorie') && empty($categories) && 
-             $request->has('type_travail') && empty($typeTravail) && 
-             $request->has('search') && empty($search) &&
-             $request->has('location') && empty($request->location))) {
-            $request->merge(['page' => 1]);
-        }
+    //     // Si aucun filtre n'est appliqué ou si tous les filtres ont été décochés, forcez page=1
+    //     if (!$filtresAppliques || 
+    //         ($request->has('categorie') && empty($categories) && 
+    //          $request->has('type_travail') && empty($typeTravail) && 
+    //          $request->has('search') && empty($search) &&
+    //          $request->has('location') && empty($request->location))) {
+    //         $request->merge(['page' => 1]);
+    //     }
                 
-        $offres = $query->latest()->paginate(10)->withQueryString();
-        $allCategories = Categorie::where('is_active', true)->get();
+    //     $offres = $query->latest()->paginate(10)->withQueryString();
+    //     $allCategories = Categorie::where('is_active', true)->get();
         
-        return inertia('client/JobPage', [
-            'offres' => $offres,
-            'categories' => $allCategories,
-            'typesoffres' => $typesoffres,
-            'cantons' => $cantons,
-            'filters' => [
-                'search' => $search,
-                'categorie' => $categories,
-                'type_travail' => $typeTravail,
-                'location' => $request->input('location', '')
-            ]
-        ]);
+    //     return inertia('client/JobPage', [
+    //         'offres' => $offres,
+    //         'categories' => $allCategories,
+    //         'typesoffres' => $typesoffres,
+    //         'cantons' => $cantons,
+    //         'filters' => [
+    //             'search' => $search,
+    //             'categorie' => $categories,
+    //             'type_travail' => $typeTravail,
+    //             'location' => $request->input('location', '')
+    //         ]
+    //     ]);
+    // }
+
+    public function index(Request $request)
+{
+    // Commencer avec une requête de base
+    $query = OffreEmploi::where('status', true)
+        ->where('date_fin', '>=', now());
+     
+    // Ajouter la jointure uniquement si nécessaire pour le filtre de localisation
+    if ($request->filled('location')) {
+        $query->join('entreprises', 'offre_emplois.entreprise_id', '=', 'entreprises.id')
+              ->where('entreprises.canton_id', $request->location);
+    } else {
+        // Si pas de filtre de localisation, utilisez une relation "with" à la place
+        $query->with('entreprise');
     }
+    
+    // Toujours inclure la relation avec catégorie
+    $query->with('categorie');
+    
+    // Traitement des catégories (peut être multiple)
+    $categories = [];
+    if ($request->has('categorie')) {
+        // Gère les cas où categorie est un tableau ou une chaîne
+        if (is_array($request->categorie)) {
+            $categories = array_filter(array_map('intval', $request->categorie));
+        } elseif (is_string($request->categorie) && !empty($request->categorie)) {
+            $categories = [intval($request->categorie)];
+        }
+    }
+    
+    // Appliquer le filtre de catégories s'il y en a
+    if (!empty($categories)) {
+        $query->whereIn('categorie_id', $categories);
+    }
+    
+    // Traitement des types de travail (peut être multiple)
+    $typeTravail = [];
+    if ($request->has('type_travail')) {
+        if (is_array($request->type_travail)) {
+            $typeTravail = array_filter($request->type_travail); // Filtrer les valeurs vides
+            if (!empty($typeTravail)) {
+                $query->whereIn('type_travail', $typeTravail);
+            }
+        } elseif (!empty($request->type_travail)) {
+            $typeTravail = [$request->type_travail];
+            $query->where('type_travail', $request->type_travail);
+        }
+    }
+    
+    $search = '';
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function($q) use ($search) {
+            $q->where('titre', 'like', "%{$search}%")
+              ->orWhere('description', 'like', "%{$search}%");
+        });
+    }
+
+    $typesoffres = OffreEmploi::distinct()->pluck('type_travail');
+    
+    // Récupération des cantons depuis la base de données
+    $cantons = Canton::all();
+    
+    // Vérifiez si des filtres sont appliqués
+    $filtresAppliques = !empty($categories) || !empty($typeTravail) || !empty($search) || $request->filled('location');
+    
+    // Si aucun filtre n'est appliqué ou si tous les filtres ont été décochés, forcez page=1
+    if (!$filtresAppliques || 
+        ($request->has('categorie') && empty($categories) && 
+         $request->has('type_travail') && empty($typeTravail) && 
+         $request->has('search') && empty($search) &&
+         $request->has('location') && empty($request->location))) {
+        $request->merge(['page' => 1]);
+    }
+    
+    // Pour éviter les problèmes avec join, s'assurer qu'on a les bonnes colonnes
+    if ($request->filled('location')) {
+        $query->select('offre_emplois.*');
+    }
+            
+    $offres = $query->latest()->paginate(10)->withQueryString();
+    $allCategories = Categorie::where('is_active', true)->get();
+
+    // dd($offres);
+    
+    return inertia('client/JobPage', [
+        'offres' => $offres,
+        'categories' => $allCategories,
+        'typesoffres' => $typesoffres,
+        'cantons' => $cantons,
+        'filters' => [
+            'search' => $search,
+            'categorie' => $categories,
+            'type_travail' => $typeTravail,
+            'location' => $request->input('location', '')
+        ]
+    ]);
+}
     
     /**
      * Afficher le détail d'une offre d'emploi
