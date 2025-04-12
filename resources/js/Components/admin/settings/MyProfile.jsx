@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from '@inertiajs/react';
 import { Camera } from 'lucide-react'; // Importing Camera icon from Lucide
 
+
 const MyProfile = () => {
   const { data, setData, post, processing, errors } = useForm({
     profilePhoto: null, // For uploading profile photo
