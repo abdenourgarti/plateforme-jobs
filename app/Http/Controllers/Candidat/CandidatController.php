@@ -253,7 +253,7 @@ class CandidatController extends Controller
             ->latest()
             ->paginate(10);
 
-        return inertia('Candidat/Applications', [
+        return inertia('admin/CompanyApp', [
             'applications' => $applications
         ]);
     }
