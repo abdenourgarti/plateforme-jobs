@@ -80,7 +80,7 @@ class OffreEmploi extends Model
         return $this->hasMany(OffreEmploiPaiement::class);
     }
 
-    public function candidatures()
+    public function applications()
     {
         return $this->hasMany(OffreEmploiApplication::class);
     }

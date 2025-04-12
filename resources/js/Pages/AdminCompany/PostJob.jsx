@@ -21,8 +21,8 @@ const PostJob = (props) => {
     // JobDescription data
     jobDescription: "",
     responsibilities: "",
-    whoYouAre: "",
-    niceToHaves: "",
+    whoYouAre: "", // exigence
+    niceToHaves: "", // pour preference
     
     // PerksAndBenefits data
     perks: [
