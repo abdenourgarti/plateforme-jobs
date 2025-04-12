@@ -107,7 +107,7 @@ class EntrepriseController extends Controller
         // $totalApplications = $entreprise->offres()->withCount('applications')->get()->sum('applications_count');
 
         return inertia(
-            'entreprise/Dashboard',
+            'AdminCompany/Dashboard',
 
             // [
             //     'offres' => $offres,
@@ -198,5 +198,10 @@ class EntrepriseController extends Controller
                 ]);
             }
         }
+    }
+
+    public function settings()
+    {
+        return inertia('AdminCompany/Settings');
     }
 }

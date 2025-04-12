@@ -31,9 +31,9 @@ const Sidebar = () => {
         {/* Main Navigation */}
         <div>
           <Link
-            href="/admincompany/dashboard"
+            href="/entreprise/dashboard"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admincompany/dashboard')
+              isActive('/entreprise/dashboard')
                 ? 'bg-gray-200 text-orange-600 nav-link'
                 : 'hover:bg-gray-200'
             }`}
@@ -99,9 +99,9 @@ const Sidebar = () => {
           <h2 className="ml-4 text-gray-400 mt-3 mb-4">Settings</h2>
 
           <Link
-            href="/admincompany/settings"
+            href="/entreprise/settings"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admincompany/settings')
+              isActive('/entreprise/settings')
                 ? 'bg-gray-200 text-orange-600  nav-link'
                 : 'hover:bg-gray-200'
             }`}

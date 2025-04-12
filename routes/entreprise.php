@@ -12,6 +12,7 @@ Route::middleware(['auth', 'entreprise'])->prefix('entreprise')->group(function 
     Route::get('/dashboard', [EntrepriseController::class, 'dashboard'])->name('entreprise.dashboard');
     Route::get('/profile', [EntrepriseController::class, 'profile'])->name('entreprise.profile');
     Route::put('/profile', [EntrepriseController::class, 'updateProfile'])->name('entreprise.profile.update');
+    Route::get('/settings', [EntrepriseController::class, 'settings'])->name('entreprise.settings');
     // Les technologies seront gérées directement dans le contrôleur EntrepriseController
 });
 
