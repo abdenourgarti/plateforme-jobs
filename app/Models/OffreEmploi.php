@@ -42,6 +42,7 @@ class OffreEmploi extends Model
         return $this->belongsTo(Categorie::class);
     }
 
+
     // Relation avec le canton
     public function canton()
     {
@@ -50,12 +51,13 @@ class OffreEmploi extends Model
 
     public function competences()
     {
-        return $this->hasMany(OffreEmploiCompetence::class);
+        return $this->hasMany(OffreEmploiCompetence::class, 'offre_emplois_id');
     }
-
+    
     public function benefits()
     {
-        return $this->hasMany(OffreEmploiBenefit::class);
+        return $this->hasMany(OffreEmploiBenefit::class, 'offre_emplois_id');
+
     }
 
     public function responsabilites()

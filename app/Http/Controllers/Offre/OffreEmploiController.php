@@ -208,6 +208,7 @@ class OffreEmploiController extends Controller
      */
     public function show(OffreEmploi $offre)
     {
+                
         $offre->load([
             'entreprise.domaine',
             'categorie',
@@ -217,6 +218,7 @@ class OffreEmploiController extends Controller
             'exigences',
             'preferences'
         ]);
+
         
         // Vérifier si le candidat a déjà postulé
         $hasApplied = false;
@@ -234,7 +236,8 @@ class OffreEmploiController extends Controller
             ->take(3)
             ->get();
         
-        return inertia('Offres/Show', [
+        // dd($similarOffres);
+        return inertia('client/CompanyJobDetails', [
             'offre' => $offre,
             'hasApplied' => $hasApplied,
             'similarOffres' => $similarOffres
