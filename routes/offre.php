@@ -9,7 +9,6 @@ Route::get('/offres', [OffreEmploiController::class, 'index'])->name('offres.ind
 Route::get('/offres/{offre}', [OffreEmploiController::class, 'show'])->name('offres.show');
 // Routes pour les entreprises
 Route::middleware(['auth', 'entreprise'])->prefix('entreprise')->name('entreprise.')->group(function () {
-    // Route::post('offres', [OffreEmploiController::class, 'store'])->name('offre.store');
 
     Route::resource('offres', OffreEmploiController::class)->except(['index', 'show']);
     Route::get('/mes-offres', [OffreEmploiController::class, 'mesOffres'])->name('mes-offres');
