@@ -14,13 +14,13 @@ const JobList = ({ jobs }) => {
                             <img
                                 // src={`${job.entreprise.logo}`}
                                 src={entrepriseLogo}
-                                alt={job.entreprise.nom}
+                                // alt={job.entreprise.nom}
                                 className="w-12 h-12 mr-4"
                             />
                             <div>
                                 <h3 className="text-lg font-semibold">{job.titre}</h3>
                                 <p className="text-gray-500">
-                                    {job.entreprise.nom} ● {job.location}
+                                    {job?.entreprise.nom} ● {job.location}
                                 </p>
                                 <div className="mt-2">
                                     <span className="text-sm bg-gray-200 px-2 py-1 rounded mr-2">
