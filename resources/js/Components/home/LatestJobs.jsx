@@ -30,7 +30,7 @@ const LatestJobs = (props) => {
 
                 {/* Job Details */}
                 <div>
-                  <h3 className="font-semibold">{job.title}</h3>
+                  <h3 className="font-semibold">{job.titre}</h3>
                   <p className="text-gray-500">{job.canton.nom} • {job.location}</p>
 
                   {/* Job Tags */}

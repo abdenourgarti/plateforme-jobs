@@ -66,25 +66,25 @@ const Dashboard = () => {
         </p>
       </div>
 
-      {/* Notification Banner */}
-      <div className="bg-white p-4 rounded-lg mb-6 relative">
-        <button 
-          onClick={() => setError(null)} // Close notification
-          className="absolute top-2 right-2 text-gray-400 hover:text-red-500"
-        >
-          <X size={16} />
-        </button>
-        <div className="flex items-center space-x-2">
-          <img src="/path/to/feature-icon.png" alt="New Feature" className="w-8 h-8 object-cover" />
-          <div>
-            <p className="font-medium text-gray-700">New Feature</p>
-            <p className="text-sm text-gray-500">
-              You can request a follow-up 7 days after applying for a job if the application status is in review. Only one follow-up is allowed per job.
-            </p>
+      {/* Notification Banner 
+        <div className="bg-white p-4 rounded-lg mb-6 relative">
+          <button 
+            onClick={() => setError(null)} // Close notification
+            className="absolute top-2 right-2 text-gray-400 hover:text-red-500"
+          >
+            <X size={16} />
+          </button>
+          <div className="flex items-center space-x-2">
+            <img src="/path/to/feature-icon.png" alt="New Feature" className="w-8 h-8 object-cover" />
+            <div>
+              <p className="font-medium text-gray-700">New Feature</p>
+              <p className="text-sm text-gray-500">
+                You can request a follow-up 7 days after applying for a job if the application status is in review. Only one follow-up is allowed per job.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-
+      */}
       {/* Tabs */}
       <div className="mb-6">
         <nav className="flex space-x-4">
