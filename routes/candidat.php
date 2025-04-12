@@ -10,6 +10,10 @@ Route::middleware(['auth', 'candidat'])->prefix('candidat')->group(function () {
     Route::get('/dashboard', [CandidatController::class, 'dashboard'])->name('candidat.dashboard');
     Route::get('/profile', [CandidatController::class, 'profile'])->name('candidat.profile');
     Route::put('/profile', [CandidatController::class, 'updateProfile'])->name('candidat.profile.update');
+    Route::get('/settings', [CandidatController::class, 'settings'])->name('candidat.settings');
+    Route::put('/settings/profile', [CandidatController::class, 'updateSettings'])->name('candidat.settings.update');
+    Route::put('/settings/password', [CandidatController::class, 'updatePassword'])->name('candidat.settings.password.update');
+    Route::put('/settings/email', [CandidatController::class, 'updateEmail'])->name('candidat.settings.email.update');
     
     // Gestion des compétences, expériences et éducations seront gérées directement dans le controller CandidatController
     Route::get('/applications', [CandidatController::class, 'applications'])->name('candidat.applications');
