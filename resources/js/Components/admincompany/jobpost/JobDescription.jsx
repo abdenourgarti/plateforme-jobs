@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import Quill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const JobDescription = () => {
+const JobDescription = ({ onNext, onBack, initialData }) => {
   const [formData, setFormData] = useState({
-    jobDescription: '',
-    responsibilities: '',
-    whoYouAre: '',
-    niceToHaves: '',
+    jobDescription: initialData?.jobDescription || '',
+    responsibilities: initialData?.responsibilities || '',
+    whoYouAre: initialData?.whoYouAre || '',
+    niceToHaves: initialData?.niceToHaves || '',
   });
 
   const handleChange = (field) => (value) => {
@@ -17,7 +17,16 @@ const JobDescription = () => {
     }));
   };
 
-  const getCharacterCount = (text) => text.length;
+  const getCharacterCount = (text) => {
+    // Remove HTML tags to count only visible text
+    const strippedText = text.replace(/<[^>]+>/g, '');
+    return strippedText.length;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onNext(formData);
+  };
 
   const quillModules = {
     toolbar: [
@@ -52,36 +61,34 @@ const JobDescription = () => {
   ];
 
   return (
+    <form id="step-2-form" onSubmit={handleSubmit}>
+      <div className="space-y-10">
+        {sections.map((section) => (
+          <div key={section.id} className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            {/* Left side: label and description */}
+            <div>
+              <h2 className="text-lg font-semibold mb-1">{section.title}</h2>
+              <p className="text-sm text-gray-500">{section.description}</p>
+            </div>
 
-
-
-    <div className="space-y-10">
-        
-      {sections.map((section) => (
-        <div key={section.id} className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-          {/* Left side: label and description */}
-          <div>
-            <h2 className="text-lg font-semibold mb-1">{section.title}</h2>
-            <p className="text-sm text-gray-500">{section.description}</p>
-          </div>
-
-          {/* Right side: Quill editor */}
-          <div>
-            <Quill
-              id={section.id}
-              value={formData[section.id]}
-              onChange={handleChange(section.id)}
-              modules={quillModules}
-              placeholder={`Enter ${section.title.toLowerCase()}...`}
-              className="mt-2"
-            />
-            <div className="flex justify-end text-sm text-gray-500 mt-2">
-              <span>{getCharacterCount(formData[section.id])} / 500</span>
+            {/* Right side: Quill editor */}
+            <div>
+              <Quill
+                id={section.id}
+                value={formData[section.id]}
+                onChange={handleChange(section.id)}
+                modules={quillModules}
+                placeholder={`Enter ${section.title.toLowerCase()}...`}
+                className="mt-2"
+              />
+              <div className="flex justify-end text-sm text-gray-500 mt-2">
+                <span>{getCharacterCount(formData[section.id])} / 500</span>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </form>
   );
 };
 
