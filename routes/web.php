@@ -68,6 +68,16 @@ Route::get('/admincompany/dashboard', function () {
     return Inertia::render('AdminCompany/Dashboard');
 })->name('admincompany.dashboard');
 
+Route::get('/admincompany/settings', function () {
+    return Inertia::render('AdminCompany/Settings');
+})->name('admincompany.Settings');
+
+
+
+Route::get('/admincompany/postjob', function () {
+    return Inertia::render('AdminCompany/PostJob');
+})->name('admincompany.postjob');
+
 
 Route::get('/admin/findjob', function () {
     return Inertia::render('admin/FindJob');
