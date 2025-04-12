@@ -194,7 +194,7 @@ class OffreEmploiController extends Controller
      */
     public function store(Request $request)
     {
-        dd('rak hna');
+        dd('marche');
         $entreprise = Auth::user()->entreprise;
         
         // Valider les données de base de l'offre
@@ -222,6 +222,8 @@ class OffreEmploiController extends Controller
             'preferences' => 'nullable|array',
             'preferences.*.designation' => 'required|string|max:255',
         ]);
+
+        
         
         // Créer l'offre d'emploi
         $offre = $entreprise->offres()->create([

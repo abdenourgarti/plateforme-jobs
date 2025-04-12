@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const JobInformation = ({ onNext, onBack, info }) => {
+const JobInformation = ({ onNext, onBack, info, initialData }) => {
     const [formData, setFormData] = useState({
-        jobTitle: "",
-        employmentTypes: [],
-        salaryMin: "",
-        salaryMax: "",
-        categories: "",
-        requiredSkills: [],
+        jobTitle: initialData?.jobTitle || "",
+        employmentTypes: initialData?.employmentTypes || [],
+        salaryMin: initialData?.salaryMin || "",
+        salaryMax: initialData?.salaryMax || "",
+        categories: initialData?.categories || "",
+        requiredSkills: initialData?.requiredSkills?.length ? initialData.requiredSkills : [""],
     });
 
     // Handle input changes for all fields
@@ -31,8 +31,13 @@ const JobInformation = ({ onNext, onBack, info }) => {
         }
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onNext(formData);
+    };
+
     return (
-        <div>
+        <form id="step-1-form" onSubmit={handleSubmit}>
             {/* Basic Information Section */}
             <h2 className="text-lg font-semibold mb-2">Basic Information</h2>
             <p className="text-sm text-gray-500 mb-4">
@@ -60,6 +65,7 @@ const JobInformation = ({ onNext, onBack, info }) => {
                         value={formData.jobTitle}
                         onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                        required
                     />
                     <label
                         htmlFor="jobTitle"
@@ -82,8 +88,6 @@ const JobInformation = ({ onNext, onBack, info }) => {
                         You can select multiple types of employment.
                     </p>
                 </div>
-
-                {/* {console.log(info.employmentTypes)} */}
 
                 {/* Right: Checkbox Inputs */}
                 <div className="space-y-2">
@@ -184,9 +188,11 @@ const JobInformation = ({ onNext, onBack, info }) => {
                     value={formData.categories}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                    required
                 >
+                    <option value="">Select a category</option>
                     {info.categories?.map((category) => (
-                        <option value={category.id}>
+                        <option key={category.id} value={category.id}>
                             {category.designation}
                         </option>
                     ))}
@@ -194,43 +200,7 @@ const JobInformation = ({ onNext, onBack, info }) => {
             </div>
             <hr />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 mt-4">
-                {/* Left: Heading */}
-                <div>
-                    <h2 className="text-lg font-semibold mb-2">Salary</h2>
-                    <p className="text-sm text-gray-500">
-                        Please specify the estimated salary range for the role.
-                        You can leave this blank.
-                    </p>
-                </div>
-
-                {/* Right: Salary Range Input */}
-                <div className="flex items-center space-x-2">
-                    <span>$</span>
-                    <input
-                        type="number"
-                        id="salaryMin"
-                        placeholder="5,000"
-                        name="salaryMin"
-                        value={formData.salaryMin}
-                        onChange={handleChange}
-                        className="w-24 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <span>to</span>
-                    <input
-                        type="number"
-                        id="salaryMax"
-                        placeholder="22,000"
-                        name="salaryMax"
-                        value={formData.salaryMax}
-                        onChange={handleChange}
-                        className="w-24 px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                </div>
-            </div>
-            <hr />
-
-            {/* Categories Section */}
+            {/* Required Skills Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 mt-4">
                 {/* Left: Heading */}
                 <div>
@@ -242,8 +212,54 @@ const JobInformation = ({ onNext, onBack, info }) => {
                     </p>
                 </div>
 
+                {/* Right: Skills UI */}
                 <div>
+                    <div className="mt-2 space-y-2">
+                        {formData.requiredSkills.map((skill, index) => (
+                            <div
+                                key={index}
+                                className="flex items-center space-x-2"
+                            >
+                                <input
+                                    type="text"
+                                    placeholder="e.g. Graphic Design"
+                                    value={skill}
+                                    onChange={(e) => {
+                                        const newSkills = [
+                                            ...formData.requiredSkills,
+                                        ];
+                                        newSkills[index] = e.target.value;
+                                        setFormData((prevData) => ({
+                                            ...prevData,
+                                            requiredSkills: newSkills,
+                                        }));
+                                    }}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                                />
+                                {formData.requiredSkills.length > 1 && (
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const newSkills = [
+                                                ...formData.requiredSkills,
+                                            ];
+                                            newSkills.splice(index, 1);
+                                            setFormData((prevData) => ({
+                                                ...prevData,
+                                                requiredSkills: newSkills,
+                                            }));
+                                        }}
+                                        className="text-red-500 hover:text-red-700"
+                                    >
+                                        x
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
                     <button
+                        type="button"
                         onClick={() =>
                             setFormData((prevData) => ({
                                 ...prevData,
@@ -253,64 +269,13 @@ const JobInformation = ({ onNext, onBack, info }) => {
                                 ],
                             }))
                         }
-                        className="bg-transparent border hover:bg-red-100 text-red-400 px-4 py-2 rounded mt-2"
+                        className="bg-transparent border hover:bg-red-100 text-red-400 px-4 py-2 rounded mt-4"
                     >
                         + Add Skill
                     </button>
                 </div>
-
-                {/* Right: Dropdown Input */}
             </div>
-
-            {/* Required Skills Section */}
-            <div className="mb-6 mt-4">
-                {/* Add Skill Button */}
-
-                {/* List of Skills */}
-                <div className="mt-2 space-y-2">
-                    {formData.requiredSkills.map((skill, index) => (
-                        <div
-                            key={index}
-                            className="flex items-center space-x-2"
-                        >
-                            <input
-                                type="text"
-                                placeholder="e.g. Graphic Design"
-                                value={skill}
-                                onChange={(e) => {
-                                    const newSkills = [
-                                        ...formData.requiredSkills,
-                                    ];
-                                    newSkills[index] = e.target.value;
-                                    setFormData((prevData) => ({
-                                        ...prevData,
-                                        requiredSkills: newSkills,
-                                    }));
-                                }}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                            />
-                            {index > 0 && (
-                                <button
-                                    onClick={() => {
-                                        const newSkills = [
-                                            ...formData.requiredSkills,
-                                        ];
-                                        newSkills.splice(index, 1);
-                                        setFormData((prevData) => ({
-                                            ...prevData,
-                                            requiredSkills: newSkills,
-                                        }));
-                                    }}
-                                    className="text-red-500 hover:text-red-700"
-                                >
-                                    x
-                                </button>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
+        </form>
     );
 };
 
