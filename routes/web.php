@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SocialiteController;
+use App\Models\Categorie;
+use App\Models\OffreEmploi;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -73,10 +75,17 @@ Route::get('/admincompany/settings', function () {
 })->name('admincompany.Settings');
 
 
-
 Route::get('/admincompany/postjob', function () {
-    return Inertia::render('AdminCompany/PostJob');
+
+    $categories = Categorie::all(); 
+    $employmentTypes = OffreEmploi::select('type_travail')->distinct()->get(); 
+
+    return Inertia::render('AdminCompany/PostJob', [
+        'categories' => $categories,
+        'employmentTypes' => $employmentTypes, 
+    ]);
 })->name('admincompany.postjob');
+
 
 
 

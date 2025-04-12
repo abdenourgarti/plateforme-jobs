@@ -19,7 +19,7 @@ class EntrepriseController extends Controller
     public function index(Request $request)
     {
         $query = Entreprise::with('canton', 'domaine');
-        
+
         // Convertir les domaines en tableau d'entiers
         $domaines = [];
         if ($request->has('domaines')) {
@@ -30,30 +30,30 @@ class EntrepriseController extends Controller
                 $domaines = [intval($request->domaines)];
             }
         }
-        
+
         // Filtres
         if (!empty($domaines)) {
             $query->whereIn('domaine_id', $domaines);
         }
-        
+
         if ($request->filled('canton')) {
             $query->where('canton_id', $request->canton);
         }
-        
+
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('nom', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('locations', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('locations', 'like', "%{$search}%");
             });
         }
-        
+
         // Limit to 8 per page as requested
         $entreprises = $query->withCount('offresEmplois')->latest()->paginate(8)->withQueryString();
         $allDomaines = Domaine::all();
         $cantons = Canton::all();
-        
+
         return inertia('client/Companies', [
             'entreprises' => $entreprises,
             'domaines' => $allDomaines,
@@ -65,7 +65,11 @@ class EntrepriseController extends Controller
             ]
         ]);
     }
-    
+
+
+
+
+
     /**
      * Afficher le détail d'une offre d'emploi
      */
@@ -76,13 +80,13 @@ class EntrepriseController extends Controller
             'canton',
             'technologies',
         ]);
-        
+
         return inertia('client/CompanyDetails', [
             'entreprise' => $entreprise,
             'offres' => $entreprise->offresEmplois()
                 ->with('entreprise', 'categorie')
                 ->where('entreprise_id', $entreprise->id)
-                ->where('status', true) 
+                ->where('status', true)
                 ->latest()
                 ->take(5)
                 ->get(),
@@ -96,22 +100,23 @@ class EntrepriseController extends Controller
         //     ->latest()
         //     ->take(5)
         //     ->get();
-            
+
         // $totalOffres = $entreprise->offres()->count();
         // $offresActives = $entreprise->offres()->where('status', true)->where('date_fin', '>=', now())->count();
         // $totalApplications = $entreprise->offres()->withCount('applications')->get()->sum('applications_count');
 
-        return inertia('entreprise/Dashboard', 
-        
-        // [
-        //     'offres' => $offres,
-        //     'stats' => [
-        //         'totalOffres' => $totalOffres,
-        //         'offresActives' => $offresActives,
-        //         'totalApplications' => $totalApplications
-        //     ]
-        // ]
-    );
+        return inertia(
+            'entreprise/Dashboard',
+
+            // [
+            //     'offres' => $offres,
+            //     'stats' => [
+            //         'totalOffres' => $totalOffres,
+            //         'offresActives' => $offresActives,
+            //         'totalApplications' => $totalApplications
+            //     ]
+            // ]
+        );
     }
 
     public function profile()
@@ -165,6 +170,8 @@ class EntrepriseController extends Controller
 
         return redirect()->route('entreprise.profile')->with('success', 'Profil mis à jour avec succès !');
     }
+
+
 
     protected function syncTechnologies(Entreprise $entreprise, array $technologies)
     {

@@ -5,7 +5,8 @@ import JobInformation from '@/components/admincompany/jobpost/JobInformation';
 import JobDescription from '@/components/admincompany/jobpost/JobDescription';
 import PerksAndBenefits from '@/components/admincompany/jobpost/PerksAndBenefits';
 
-const PostJob = () => {
+const PostJob = (props) => {
+
   const [currentStep, setCurrentStep] = useState(1);
 
   const goToNextStep = () => setCurrentStep(prev => prev + 1);
@@ -48,7 +49,7 @@ const PostJob = () => {
 
       {/* Content Based on Current Step */}
       {currentStep === 1 && (
-        <JobInformation onNext={goToNextStep} onBack={goToPreviousStep} />
+        <JobInformation info={props} onNext={goToNextStep} onBack={goToPreviousStep} />
       )}
       {currentStep === 2 && (
         <JobDescription onNext={goToNextStep} onBack={goToPreviousStep} />

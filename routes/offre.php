@@ -14,6 +14,9 @@ Route::middleware(['auth', 'entreprise'])->prefix('entreprise')->name('entrepris
     Route::get('/mes-offres', [OffreEmploiController::class, 'mesOffres'])->name('mes-offres');
     Route::get('/offres/{offre}/applications', [ApplicationController::class, 'index'])->name('offres.applications.index');
     Route::get('/offres/{offre}/applications/{application}', [ApplicationController::class, 'show'])->name('offres.applications.show');
+
+    Route::post('/offres', [OffreEmploiController::class, 'store'])->name('offre.store');
+
 });
 
 // Routes pour les candidats
