@@ -10,6 +10,7 @@ use App\Models\CandidatEducation;
 use App\Models\OffreEmploiApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -256,5 +257,78 @@ class CandidatController extends Controller
         return inertia('Candidat/Applications', [
             'applications' => $applications
         ]);
+    }
+
+    public function settings()
+    {
+        $candidat = Auth::user()->candidat;
+        
+        return inertia('admin/Settings', [
+            'candidat' => $candidat
+        ]);
+    }
+
+    public function updateSettings(Request $request)
+    {
+        $user = Auth::user();
+        $candidat = $user->candidat;
+
+        // Valider les données de base du candidat
+        $validatedData = $request->validate([
+            'fullName' => 'required|string|max:100',
+            'phoneNumber' => 'nullable|string|max:20',
+            'dateOfBirth' => 'nullable|date',
+            'gender' => 'nullable|in:M,F',
+        ]);
+
+        // Mettre à jour les informations de base
+        $candidat->update([
+            'nom_complet' => $validatedData['fullName'],
+            'telephone' => $validatedData['phoneNumber'],
+            'date_nessaince' => $validatedData['dateOfBirth'],
+            'sexe' => $validatedData['gender'],
+        ]);
+
+        return back()->with('success', 'Profil mis à jour avec succès !');
+    }
+
+    public function updateEmail(Request $request)
+    {
+        $user = Auth::user();
+        $candidat = $user->candidat;
+
+        // Valider l'email
+        $validatedData = $request->validate([
+            'email' => 'required|email|max:50|unique:users,email,' . $user->id,
+        ]);
+
+        // Mettre à jour l'email dans la table users et candidats
+        $user->update(['email' => $validatedData['email']]);
+        $candidat->update(['email' => $validatedData['email']]);
+
+        return back()->with('success', 'Email mis à jour avec succès !');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+    
+        // Valider les données
+        $validatedData = $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8',
+        ]);
+    
+        // Vérifier si l'ancien mot de passe est correct
+        if (!Hash::check($validatedData['old_password'], $user->password)) {
+            return back()->withErrors(['old_password' => 'Le mot de passe actuel est incorrect.']);
+        }
+    
+        // Mettre à jour le mot de passe
+        $user->update([
+            'password' => Hash::make($validatedData['new_password']),
+        ]);
+    
+        return back()->with('success', 'Mot de passe mis à jour avec succès !');
     }
 }

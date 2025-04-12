@@ -98,9 +98,9 @@ const Sidebar = () => {
           <h2 className="ml-4 text-gray-400 mt-3 mb-4">Settings</h2>
 
           <Link
-            href="/admin/settings"
+            href="/candidat/settings"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admin/settings')
+              isActive('/candidat/settings')
                 ? 'bg-gray-200 text-orange-600  nav-link'
                 : 'hover:bg-gray-200'
             }`}

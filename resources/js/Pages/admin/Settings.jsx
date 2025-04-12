@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import MyProfile from '@/components/admin/settings/MyProfile';
 import LoginDetails from '@/components/admin/settings/LoginDetails';
+import { usePage } from '@inertiajs/react';
 
 const SettingsPage = () => {
-  const [activeTab, setActiveTab] = useState('my-profile'); // State to track active tab
+  const [activeTab, setActiveTab] = useState('my-profile');
+  const { candidat } = usePage().props;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,8 +31,8 @@ const SettingsPage = () => {
 
       {/* Content */}
       <div>
-        {activeTab === 'my-profile' && <MyProfile />}
-        {activeTab === 'login-details' && <LoginDetails />}
+        {activeTab === 'my-profile' && <MyProfile candidat={candidat} />}
+        {activeTab === 'login-details' && <LoginDetails candidat={candidat} />}
       </div>
     </div>
   );
