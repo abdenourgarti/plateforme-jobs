@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from '@inertiajs/react'
+import { Link, useForm } from '@inertiajs/react'
+
 import {
   Home,
   Briefcase,
@@ -12,9 +13,14 @@ import {
 } from 'lucide-react'
 
 const Sidebar = () => {
+  const { post } = useForm();
   const isActive = (path) => {
     return window.location.pathname.startsWith(path)
   }
+
+  const handleLogout = () => {
+    post(route('logout'));
+};
 
   return (
     <div className="w-64 bg-slate-100 h-screen">
@@ -26,9 +32,9 @@ const Sidebar = () => {
         {/* Main Navigation */}
         <div>
           <Link
-            href="/admin/dashboard"
+            href="/candidat/dashboard"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
-              isActive('/admin/dashboard')
+              isActive('/candidat/dashboard')
                 ? 'bg-gray-200 text-orange-600 nav-link'
                 : 'hover:bg-gray-200'
             }`}
@@ -74,7 +80,7 @@ const Sidebar = () => {
           </Link>
 
           <Link
-            href="/admin/profile"
+            href="/candidat/profile"
             className={`flex items-center px-4 py-2 rounded-md transition duration-300 ease-in-out w-full ${
               isActive('/admin/profile')
                 ? 'bg-gray-200 text-orange-600  nav-link'
@@ -119,17 +125,17 @@ const Sidebar = () => {
 
           {/* Footer */}
           <div className="mt-64 p-4 border-t border-slate-200">
-            <Link
-              href="/logout"
+            <button
+            onClick={handleLogout}
               className="flex items-center px-4 py-2 text-red-600 hover:bg-red-100 rounded-md transition duration-300 ease-in-out w-full"
             >
               <LogOut size={20} className="mr-3 text-red-600" />
               Logout
-            </Link>
+            </button>
 
             <div className="flex items-center space-x-3 mt-4">
               <img
-                src="https://example.com/avatar.jpg"
+                src="/images/user/user-05.jpg"
                 alt="Profile"
                 className="w-10 h-10 rounded-full"
               />
