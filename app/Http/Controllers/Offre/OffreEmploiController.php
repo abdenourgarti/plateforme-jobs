@@ -22,109 +22,111 @@ class OffreEmploiController extends Controller
      */
 
     public function index(Request $request)
-{
-    // Commencer avec une requête de base
-    $query = OffreEmploi::where('status', true)
-        ->where('date_fin', '>=', now());
-     
-    // Ajouter la jointure uniquement si nécessaire pour le filtre de localisation
-    if ($request->filled('location')) {
-        $query->join('entreprises', 'offre_emplois.entreprise_id', '=', 'entreprises.id')
-              ->where('entreprises.canton_id', $request->location);
-    } else {
-        // Si pas de filtre de localisation, utilisez une relation "with" à la place
-        $query->with('entreprise');
-    }
-    
-    // Toujours inclure la relation avec catégorie
-    $query->with('categorie');
-    
-    // Traitement des catégories (peut être multiple)
-    $categories = [];
-    if ($request->has('categorie')) {
-        // Gère les cas où categorie est un tableau ou une chaîne
-        if (is_array($request->categorie)) {
-            $categories = array_filter(array_map('intval', $request->categorie));
-        } elseif (is_string($request->categorie) && !empty($request->categorie)) {
-            $categories = [intval($request->categorie)];
+    {
+        // Commencer avec une requête de base
+        $query = OffreEmploi::where('status', true)
+            ->where('date_fin', '>=', now());
+
+        // Ajouter la jointure uniquement si nécessaire pour le filtre de localisation
+        if ($request->filled('location')) {
+            $query->join('entreprises', 'offre_emplois.entreprise_id', '=', 'entreprises.id')
+                ->where('entreprises.canton_id', $request->location);
+        } else {
+            // Si pas de filtre de localisation, utilisez une relation "with" à la place
+            $query->with('entreprise');
         }
-    }
-    
-    // Appliquer le filtre de catégories s'il y en a
-    if (!empty($categories)) {
-        $query->whereIn('categorie_id', $categories);
-    }
-    
-    // Traitement des types de travail (peut être multiple)
-    $typeTravail = [];
-    if ($request->has('type_travail')) {
-        if (is_array($request->type_travail)) {
-            $typeTravail = array_filter($request->type_travail); // Filtrer les valeurs vides
-            if (!empty($typeTravail)) {
-                $query->whereIn('type_travail', $typeTravail);
+
+        // Toujours inclure la relation avec catégorie
+        $query->with('categorie');
+
+        // Traitement des catégories (peut être multiple)
+        $categories = [];
+        if ($request->has('categorie')) {
+            // Gère les cas où categorie est un tableau ou une chaîne
+            if (is_array($request->categorie)) {
+                $categories = array_filter(array_map('intval', $request->categorie));
+            } elseif (is_string($request->categorie) && !empty($request->categorie)) {
+                $categories = [intval($request->categorie)];
             }
-        } elseif (!empty($request->type_travail)) {
-            $typeTravail = [$request->type_travail];
-            $query->where('type_travail', $request->type_travail);
         }
-    }
-    
-    $search = '';
-    if ($request->filled('search')) {
-        $search = $request->search;
-        $query->where(function($q) use ($search) {
-            $q->where('titre', 'like', "%{$search}%")
-              ->orWhere('description', 'like', "%{$search}%");
-        });
+
+        // Appliquer le filtre de catégories s'il y en a
+        if (!empty($categories)) {
+            $query->whereIn('categorie_id', $categories);
+        }
+
+        // Traitement des types de travail (peut être multiple)
+        $typeTravail = [];
+        if ($request->has('type_travail')) {
+            if (is_array($request->type_travail)) {
+                $typeTravail = array_filter($request->type_travail); // Filtrer les valeurs vides
+                if (!empty($typeTravail)) {
+                    $query->whereIn('type_travail', $typeTravail);
+                }
+            } elseif (!empty($request->type_travail)) {
+                $typeTravail = [$request->type_travail];
+                $query->where('type_travail', $request->type_travail);
+            }
+        }
+
+        $search = '';
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('titre', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $typesoffres = OffreEmploi::distinct()->pluck('type_travail');
+
+        // Récupération des cantons depuis la base de données
+        $cantons = Canton::all();
+
+        // Vérifiez si des filtres sont appliqués
+        $filtresAppliques = !empty($categories) || !empty($typeTravail) || !empty($search) || $request->filled('location');
+
+        // Si aucun filtre n'est appliqué ou si tous les filtres ont été décochés, forcez page=1
+        if (
+            !$filtresAppliques ||
+            ($request->has('categorie') && empty($categories) &&
+                $request->has('type_travail') && empty($typeTravail) &&
+                $request->has('search') && empty($search) &&
+                $request->has('location') && empty($request->location))
+        ) {
+            $request->merge(['page' => 1]);
+        }
+
+        // Pour éviter les problèmes avec join, s'assurer qu'on a les bonnes colonnes
+        if ($request->filled('location')) {
+            $query->select('offre_emplois.*');
+        }
+
+        $offres = $query->latest()->paginate(10)->withQueryString();
+        $allCategories = Categorie::where('is_active', true)->get();
+
+        // dd($offres);
+
+        return inertia('client/JobPage', [
+            'offres' => $offres,
+            'categories' => $allCategories,
+            'typesoffres' => $typesoffres,
+            'cantons' => $cantons,
+            'filters' => [
+                'search' => $search,
+                'categorie' => $categories,
+                'type_travail' => $typeTravail,
+                'location' => $request->input('location', '')
+            ]
+        ]);
     }
 
-    $typesoffres = OffreEmploi::distinct()->pluck('type_travail');
-    
-    // Récupération des cantons depuis la base de données
-    $cantons = Canton::all();
-    
-    // Vérifiez si des filtres sont appliqués
-    $filtresAppliques = !empty($categories) || !empty($typeTravail) || !empty($search) || $request->filled('location');
-    
-    // Si aucun filtre n'est appliqué ou si tous les filtres ont été décochés, forcez page=1
-    if (!$filtresAppliques || 
-        ($request->has('categorie') && empty($categories) && 
-         $request->has('type_travail') && empty($typeTravail) && 
-         $request->has('search') && empty($search) &&
-         $request->has('location') && empty($request->location))) {
-        $request->merge(['page' => 1]);
-    }
-    
-    // Pour éviter les problèmes avec join, s'assurer qu'on a les bonnes colonnes
-    if ($request->filled('location')) {
-        $query->select('offre_emplois.*');
-    }
-            
-    $offres = $query->latest()->paginate(10)->withQueryString();
-    $allCategories = Categorie::where('is_active', true)->get();
-
-    // dd($offres);
-    
-    return inertia('client/JobPage', [
-        'offres' => $offres,
-        'categories' => $allCategories,
-        'typesoffres' => $typesoffres,
-        'cantons' => $cantons,
-        'filters' => [
-            'search' => $search,
-            'categorie' => $categories,
-            'type_travail' => $typeTravail,
-            'location' => $request->input('location', '')
-        ]
-    ]);
-}
-    
     /**
      * Afficher le détail d'une offre d'emploi
      */
     public function show(OffreEmploi $offre)
     {
-                
+
         $offre->load([
             'entreprise.domaine',
             'categorie',
@@ -135,14 +137,14 @@ class OffreEmploiController extends Controller
             'preferences'
         ]);
 
-        
+
         // Vérifier si le candidat a déjà postulé
         $hasApplied = false;
         if (Auth::check() && Auth::user()->type === 'candidat') {
             $candidat = Auth::user()->candidat;
             $hasApplied = $offre->applications()->where('candidat_id', $candidat->id)->exists();
         }
-        
+
         // Suggestions d'offres similaires
         $similarOffres = OffreEmploi::where('id', '!=', $offre->id)
             ->where('status', true)
@@ -151,7 +153,7 @@ class OffreEmploiController extends Controller
             ->with('entreprise')
             ->take(3)
             ->get();
-        
+
         // dd($similarOffres);
         return inertia('client/CompanyJobDetails', [
             'offre' => $offre,
@@ -159,7 +161,7 @@ class OffreEmploiController extends Controller
             'similarOffres' => $similarOffres
         ]);
     }
-    
+
     /**
      * Afficher les offres d'une entreprise
      */
@@ -171,124 +173,320 @@ class OffreEmploiController extends Controller
             ->withCount('applications')
             ->latest()
             ->paginate(10);
-        
+
         return inertia('Entreprise/Offres/Index', [
             'offres' => $offres
         ]);
     }
-    
+
     /**
      * Afficher le formulaire de création d'une offre
      */
     public function create()
     {
         $categories = Categorie::where('is_active', true)->get();
-        
+
         return inertia('Entreprise/Offres/Create', [
             'categories' => $categories
         ]);
     }
-    
+
     /**
      * Enregistrer une nouvelle offre
      */
-    public function store(Request $request)
-    {
-        $entreprise = Auth::user()->entreprise;
-        
-        
-        // Valider les données de base de l'offre
-        $validatedData = $request->validate([
-            'titre' => 'required|string|max:255',
-            'categorie_id' => 'required|exists:categorie,id',
-            'type_travail' => 'required|in:Full-Time,Part-Time,Remote,Internship,Contrat',
-            'description' => 'required|string',
-            'nombre_limit' => 'nullable|integer|min:1',
-            'date_fin' => 'required|date|after:today',
-            'salaire' => 'nullable|string|max:255',
-            'location' => 'nullable|string|max:255',
-            'status' => 'boolean',
-            // Validation des éléments liés
-            'competences' => 'nullable|array',
-            'competences.*.designation' => 'required|string|max:255',
-            'benefits' => 'nullable|array',
-            'benefits.*.titre' => 'required|string|max:255',
-            'benefits.*.description' => 'nullable|string',
-            'benefits.*.icon' => 'nullable|string|max:255',
-            'responsabilites' => 'nullable|array',
-            'responsabilites.*.designation' => 'required|string|max:255',
-            'exigences' => 'nullable|array',
-            'exigences.*.designation' => 'required|string|max:255',
-            'preferences' => 'nullable|array',
-            'preferences.*.designation' => 'required|string|max:255',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $entreprise = Auth::user()->entreprise;
 
-        
-        
-        // Créer l'offre d'emploi
-        $offre = $entreprise->offres()->create([
-            'categorie_id' => $validatedData['categorie_id'],
-            'titre' => $validatedData['titre'],
-            'type_travail' => $validatedData['type_travail'],
-            'description' => $validatedData['description'],
-            'nombre_limit' => $validatedData['nombre_limit'] ?? null,
-            'date_fin' => $validatedData['date_fin'],
-            'salaire' => $validatedData['salaire'] ?? null,
-            'location' => $validatedData['location'] ?? null,
-            'status' => $validatedData['status'] ?? true,
-            'date_publication' => now(),
-        ]);
-        
-        // Ajouter les compétences
-        if (isset($validatedData['competences'])) {
-            foreach ($validatedData['competences'] as $competence) {
+    //     dd($request->all());
+    //     // Valider les données de base de l'offre
+    //     $validatedData = $request->validate([
+    //         'jobTitle' => 'required|string|max:255',
+    //         'categories' => 'required|exists:categorie,id',
+    //         'employmentTypes' => 'required|in:Full-Time,Part-Time,Remote,Internship,Contrat',
+    //         'jobDescription' => 'required|string',
+    //         'nombre_limit' => 'nullable|integer|min:1',
+    //         'date_fin' => 'required|date|after:today',
+    //         'salaryMin' => 'nullable|string|max:255',
+    //         'location' => 'nullable|string|max:255',
+    //         'status' => 'boolean',
+    //         // Validation des éléments liés
+    //         'requiredSkills' => 'nullable|array',
+    //         'competences.*.designation' => 'required|string|max:255',
+    //         'perks' => 'nullable|array',
+    //         'benefits.*.titre' => 'required|string|max:255',
+    //         'benefits.*.description' => 'nullable|string',
+    //         'benefits.*.icon' => 'nullable|string|max:255',
+    //         'responsibilities' => 'nullable|array',
+    //         'responsabilites.*.designation' => 'required|string|max:255',
+    //         'whoYouAre' => 'nullable|array',
+    //         'exigences.*.designation' => 'required|string|max:255',
+    //         'niceToHaves' => 'nullable|array',
+    //         'preferences.*.designation' => 'required|string|max:255',
+    //     ]);
+
+
+
+    //     // Créer l'offre d'emploi
+    //     $offre = $entreprise->offres()->create([
+    //         'categorie_id' => $validatedData['categories'],
+    //         'titre' => $validatedData['jobTitle'],
+    //         'type_travail' => $validatedData['type_travail'],
+    //         'description' => $validatedData['description'],
+    //         'nombre_limit' => $validatedData['nombre_limit'] ?? null,
+    //         'date_fin' => $validatedData['date_fin'],
+    //         'salaire' => $validatedData['salaire'] ?? null,
+    //         'location' => $validatedData['location'] ?? null,
+    //         'status' => $validatedData['status'] ?? true,
+    //         'date_publication' => now(),
+    //     ]);
+
+    //     // Ajouter les compétences
+    //     if (isset($validatedData['competences'])) {
+    //         foreach ($validatedData['competences'] as $competence) {
+    //             $offre->competences()->create([
+    //                 'designation' => $competence['designation']
+    //             ]);
+    //         }
+    //     }
+
+    //     // Ajouter les avantages (benefits)
+    //     if (isset($validatedData['benefits'])) {
+    //         foreach ($validatedData['benefits'] as $benefit) {
+    //             $offre->benefits()->create([
+    //                 'titre' => $benefit['titre'],
+    //                 'description' => $benefit['description'] ?? null,
+    //                 'icon' => $benefit['icon'] ?? null,
+    //             ]);
+    //         }
+    //     }
+
+    //     // Ajouter les responsabilités
+    //     if (isset($validatedData['responsabilites'])) {
+    //         foreach ($validatedData['responsabilites'] as $responsabilite) {
+    //             $offre->responsabilites()->create([
+    //                 'designation' => $responsabilite['designation']
+    //             ]);
+    //         }
+    //     }
+
+    //     // Ajouter les exigences
+    //     if (isset($validatedData['exigences'])) {
+    //         foreach ($validatedData['exigences'] as $exigence) {
+    //             $offre->exigences()->create([
+    //                 'designation' => $exigence['designation']
+    //             ]);
+    //         }
+    //     }
+
+    //     // Ajouter les préférences
+    //     if (isset($validatedData['preferences'])) {
+    //         foreach ($validatedData['preferences'] as $preference) {
+    //             $offre->preferences()->create([
+    //                 'designation' => $preference['designation']
+    //             ]);
+    //         }
+    //     }
+
+    //     return redirect()->route('entreprise.mes-offres')->with('success', 'Offre d\'emploi créée avec succès !');
+    // }
+
+    // public function store(Request $request)
+    // {
+    //     $entreprise = Auth::user()->entreprise;
+
+    //     // $validatedData = $request->validate([
+    //     //     'jobTitle' => 'required|string|max:255',
+    //     //     'categories' => 'required|exists:categories,id',
+    //     //     'employmentTypes' => 'required|string|in:Full-Time,Part-Time,Remote,Internship,Contrat',
+    //     //     'jobDescription' => 'required|string',
+    //     //     'nombre_limit' => 'nullable|integer|min:1',
+    //     //     'date_fin' => 'required|date|after:today',
+    //     //     'salaryMin' => 'nullable|string|max:255',
+    //     //     'location' => 'nullable|string|max:255',
+    //     //     'status' => 'boolean',
+
+    //     //     // Champs composés (relations)
+    //     //     'requiredSkills' => 'nullable|array',
+    //     //     'requiredSkills.*.designation' => 'required|string|max:255',
+
+    //     //     'perks' => 'nullable|array',
+    //     //     'perks.*.titre' => 'required|string|max:255',
+    //     //     'perks.*.description' => 'nullable|string',
+    //     //     'perks.*.icon' => 'nullable|string|max:255',
+
+    //     //     'responsibilities' => 'nullable|array',
+    //     //     'responsibilities.*.designation' => 'required|string|max:255',
+
+    //     //     'whoYouAre' => 'nullable|array',
+    //     //     'whoYouAre.*.designation' => 'required|string|max:255',
+
+    //     //     'niceToHaves' => 'nullable|array',
+    //     //     'niceToHaves.*.designation' => 'required|string|max:255',
+    //     // ]);
+
+    //     dd('hna');
+
+    //     // Création de l'offre principale
+    //     $offre = $entreprise->offres()->create([
+    //         'categorie_id' => $validatedData['categories'],
+    //         'titre' => $validatedData['jobTitle'],
+    //         'type_travail' => $validatedData['employmentTypes'],
+    //         'description' => $validatedData['jobDescription'],
+    //         'nombre_limit' => $validatedData['nombre_limit'] ?? null,
+    //         'date_fin' => $validatedData['date_fin'],
+    //         'salaire' => $validatedData['salaryMin'] ?? null,
+    //         'location' => $validatedData['location'] ?? null,
+    //         'status' => $validatedData['status'] ?? true,
+    //         'date_publication' => now(),
+    //     ]);
+
+    //     // Ajouter requiredSkills (compétences)
+    //     if (!empty($validatedData['requiredSkills'])) {
+    //         foreach ($validatedData['requiredSkills'] as $skill) {
+    //             $offre->competences()->create([
+    //                 'designation' => $skill['designation']
+    //             ]);
+    //         }
+    //     }
+
+    //     dd('hna');
+    //     // Ajouter perks (avantages)
+    //     if (!empty($validatedData['perks'])) {
+    //         foreach ($validatedData['perks'] as $perk) {
+    //             $offre->benefits()->create([
+    //                 'titre' => $perk['titre'],
+    //                 'description' => $perk['description'] ?? null,
+    //                 'icon' => $perk['icon'] ?? null,
+    //             ]);
+    //         }
+    //     }
+
+    //     // Ajouter responsabilités
+    //     if (!empty($validatedData['responsibilities'])) {
+    //         foreach ($validatedData['responsibilities'] as $item) {
+    //             $offre->responsabilites()->create([
+    //                 'designation' => $item['designation']
+    //             ]);
+    //         }
+    //     }
+
+    //     // Ajouter exigences (whoYouAre)
+    //     if (!empty($validatedData['whoYouAre'])) {
+    //         foreach ($validatedData['whoYouAre'] as $item) {
+    //             $offre->exigences()->create([
+    //                 'designation' => $item['designation']
+    //             ]);
+    //         }
+    //     }
+
+    //     // Ajouter préférences (niceToHaves)
+    //     if (!empty($validatedData['niceToHaves'])) {
+    //         foreach ($validatedData['niceToHaves'] as $item) {
+    //             $offre->preferences()->create([
+    //                 'designation' => $item['designation']
+    //             ]);
+    //         }
+    //     }
+
+    //     return redirect()->route('entreprise.mes-offres')
+    //         ->with('success', 'Offre d\'emploi créée avec succès !');
+    // }
+
+    public function store(Request $request)
+{
+    $entreprise = Auth::user()->entreprise;
+
+    // Récupération des données directement
+    $jobTitle = $request->input('jobTitle');
+    $categorieId = $request->input('categories');
+    $employmentType = $request->input('employmentTypes');
+    $jobDescription = $request->input('jobDescription');
+    $nombreLimit = $request->input('nombre_limit');
+    $dateFin = $request->input('date_fin');
+    $salaryMin = $request->input('salaryMin');
+    $location = $request->input('location');
+    $status = $request->input('status', true); // true par défaut
+
+    // Création de l'offre principale
+    $offre = $entreprise->offresEmplois()->create([
+        'categorie_id' => $request->categories,
+        'titre' => $request->jobTitle,
+        'type_travail' => is_array($request->employmentTypes)
+            ? implode(',', $request->employmentTypes)
+            : $request->employmentTypes,
+        'description' => $request->jobDescription,
+        'nombre_limit' => $request->nombre_limit ?? null,
+        'date_fin' => $request->date_fin ?? '2025-02-22',
+        'salaire' => $request->salaryMin ?? null,
+        'location' => $request->location ?? null,
+        'status' => $request->status ?? true,
+        'date_publication' => now(),
+    ]);
+    
+
+    // Relations : compétences
+    $skills = $request->input('requiredSkills');
+    if (!empty($skills)) {
+        foreach ($skills as $designation) {
+            if (!empty($designation)) {
                 $offre->competences()->create([
-                    'designation' => $competence['designation']
+                    'designation' => $designation
                 ]);
             }
         }
-        
-        // Ajouter les avantages (benefits)
-        if (isset($validatedData['benefits'])) {
-            foreach ($validatedData['benefits'] as $benefit) {
-                $offre->benefits()->create([
-                    'titre' => $benefit['titre'],
-                    'description' => $benefit['description'] ?? null,
-                    'icon' => $benefit['icon'] ?? null,
-                ]);
-            }
-        }
-        
-        // Ajouter les responsabilités
-        if (isset($validatedData['responsabilites'])) {
-            foreach ($validatedData['responsabilites'] as $responsabilite) {
-                $offre->responsabilites()->create([
-                    'designation' => $responsabilite['designation']
-                ]);
-            }
-        }
-        
-        // Ajouter les exigences
-        if (isset($validatedData['exigences'])) {
-            foreach ($validatedData['exigences'] as $exigence) {
-                $offre->exigences()->create([
-                    'designation' => $exigence['designation']
-                ]);
-            }
-        }
-        
-        // Ajouter les préférences
-        if (isset($validatedData['preferences'])) {
-            foreach ($validatedData['preferences'] as $preference) {
-                $offre->preferences()->create([
-                    'designation' => $preference['designation']
-                ]);
-            }
-        }
-        
-        return redirect()->route('entreprise.mes-offres')->with('success', 'Offre d\'emploi créée avec succès !');
     }
     
+
+   
+
+    // Relations : avantages
+    $perks = $request->input('perks');
+    if (!empty($perks)) {
+        foreach ($perks as $perk) {
+            $offre->benefits()->create([
+                'titre' => $perk['titre'] ?? '',
+                'description' => $perk['description'] ?? null,
+                'icon' => $perk['icon'] ?? null,
+            ]);
+        }
+    }
+
+    
+    // Relations : responsabilités
+    $responsibilities = $request->input('responsibilities');
+    if (!empty($responsibilities)) {
+        $offre->responsabilites()->create([
+            'designation' => $responsibilities
+        ]);
+    }
+    
+    // Relations : exigences (whoYouAre)
+    $whoYouAre = $request->input('whoYouAre'); // Cela récupère la valeur du champ input
+
+    if (!empty($whoYouAre)) {
+        $offre->exigences()->create([
+            'designation' => $whoYouAre
+        ]);
+    }
+    
+
+
+
+    // Relations : préférences (niceToHaves)
+    $niceToHaves = $request->input('niceToHaves'); // Récupère la valeur
+
+    if (!empty($niceToHaves)) {
+        $offre->preferences()->create([
+            'designation' => $niceToHaves // Insère directement la valeur
+        ]);
+    }
+    
+    return redirect()->route('entreprise.mes-offres')
+        ->with('success', 'Offre d\'emploi créée avec succès !');
+}
+
+
     /**
      * Afficher le formulaire de modification d'une offre
      */
@@ -299,7 +497,7 @@ class OffreEmploiController extends Controller
         if ($offre->entreprise_id !== $entreprise->id) {
             abort(403, 'Non autorisé');
         }
-        
+
         $offre->load([
             'competences',
             'benefits',
@@ -307,15 +505,15 @@ class OffreEmploiController extends Controller
             'exigences',
             'preferences'
         ]);
-        
+
         $categories = Categorie::where('is_active', true)->get();
-        
+
         return inertia('Entreprise/Offres/Edit', [
             'offre' => $offre,
             'categories' => $categories
         ]);
     }
-    
+
     /**
      * Mettre à jour une offre
      */
@@ -326,7 +524,7 @@ class OffreEmploiController extends Controller
         if ($offre->entreprise_id !== $entreprise->id) {
             abort(403, 'Non autorisé');
         }
-        
+
         // Valider les données de base de l'offre
         $validatedData = $request->validate([
             'titre' => 'required|string|max:255',
@@ -352,7 +550,7 @@ class OffreEmploiController extends Controller
             'preferences' => 'nullable|array',
             'preferences.*.designation' => 'required|string|max:255',
         ]);
-        
+
         // Mettre à jour l'offre d'emploi
         $offre->update([
             'categorie_id' => $validatedData['categorie_id'],
@@ -365,25 +563,25 @@ class OffreEmploiController extends Controller
             'location' => $validatedData['location'] ?? null,
             'status' => $validatedData['status'] ?? true,
         ]);
-        
+
         // Mettre à jour les compétences
         $this->syncOffreCompetences($offre, $validatedData['competences'] ?? []);
-        
+
         // Mettre à jour les avantages (benefits)
         $this->syncOffreBenefits($offre, $validatedData['benefits'] ?? []);
-        
+
         // Mettre à jour les responsabilités
         $this->syncOffreResponsabilites($offre, $validatedData['responsabilites'] ?? []);
-        
+
         // Mettre à jour les exigences
         $this->syncOffreExigences($offre, $validatedData['exigences'] ?? []);
-        
+
         // Mettre à jour les préférences
         $this->syncOffrePreferences($offre, $validatedData['preferences'] ?? []);
-        
+
         return redirect()->route('entreprise.mes-offres')->with('success', 'Offre d\'emploi mise à jour avec succès !');
     }
-    
+
     /**
      * Supprimer une offre
      */
@@ -394,13 +592,13 @@ class OffreEmploiController extends Controller
         if ($offre->entreprise_id !== $entreprise->id) {
             abort(403, 'Non autorisé');
         }
-        
+
         // Supprimer l'offre et tous ses éléments associés (via les contraintes de clé étrangère)
         $offre->delete();
-        
+
         return redirect()->route('entreprise.mes-offres')->with('success', 'Offre d\'emploi supprimée avec succès !');
     }
-    
+
     /**
      * Méthodes privées pour la gestion des relations
      */
@@ -408,7 +606,7 @@ class OffreEmploiController extends Controller
     {
         // Supprimer toutes les compétences existantes
         $offre->competences()->delete();
-        
+
         // Ajouter les nouvelles compétences
         foreach ($competences as $competence) {
             if (!empty($competence['designation'])) {
@@ -418,13 +616,13 @@ class OffreEmploiController extends Controller
             }
         }
     }
-    
+
     private function syncOffreBenefits(OffreEmploi $offre, array $benefits)
     {
         // Récupérer les IDs des benefits existants
         $existingIds = $offre->benefits()->pluck('id')->toArray();
         $updatedIds = [];
-        
+
         // Mettre à jour ou créer des benefits
         foreach ($benefits as $benefit) {
             if (!empty($benefit['titre'])) {
@@ -447,19 +645,19 @@ class OffreEmploiController extends Controller
                 }
             }
         }
-        
+
         // Supprimer les benefits qui n'ont pas été mis à jour
         $idsToDelete = array_diff($existingIds, $updatedIds);
         if (!empty($idsToDelete)) {
             $offre->benefits()->whereIn('id', $idsToDelete)->delete();
         }
     }
-    
+
     private function syncOffreResponsabilites(OffreEmploi $offre, array $responsabilites)
     {
         // Supprimer toutes les responsabilités existantes
         $offre->responsabilites()->delete();
-        
+
         // Ajouter les nouvelles responsabilités
         foreach ($responsabilites as $responsabilite) {
             if (!empty($responsabilite['designation'])) {
@@ -469,12 +667,12 @@ class OffreEmploiController extends Controller
             }
         }
     }
-    
+
     private function syncOffreExigences(OffreEmploi $offre, array $exigences)
     {
         // Supprimer toutes les exigences existantes
         $offre->exigences()->delete();
-        
+
         // Ajouter les nouvelles exigences
         foreach ($exigences as $exigence) {
             if (!empty($exigence['designation'])) {
@@ -484,12 +682,12 @@ class OffreEmploiController extends Controller
             }
         }
     }
-    
+
     private function syncOffrePreferences(OffreEmploi $offre, array $preferences)
     {
         // Supprimer toutes les préférences existantes
         $offre->preferences()->delete();
-        
+
         // Ajouter les nouvelles préférences
         foreach ($preferences as $preference) {
             if (!empty($preference['designation'])) {
