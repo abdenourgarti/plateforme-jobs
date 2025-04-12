@@ -12,7 +12,7 @@ const CompaniesList = ({ entreprises }) => {
                     <div key={entreprise.id} className="bg-white border rounded-xl shadow-sm p-5 flex flex-col">
                         {/* Logo & Job Count */}
                         <div className="flex justify-between items-start">
-                        {console.log('entreprise', entreprise)}
+                        
                             <img 
                                 src={entreprise.logo ? `/storage/${entreprise.logo}` : '/images/logos/Stripe.jpg'} 
                                 alt={entreprise.nom} 

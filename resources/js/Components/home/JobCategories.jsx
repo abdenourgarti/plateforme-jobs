@@ -31,7 +31,7 @@ const JobCategories = (props) => {
             return (
               <Link 
                 key={category.id} 
-                href={`/jobs?category=${encodeURIComponent(category.name)}`} 
+                href={`/offres`} 
                 className="block"
               >
                 <div
