@@ -31,4 +31,6 @@ class OffreEmploiApplication extends Model
     {
         return $this->belongsTo(Candidat::class);
     }
+
+    
 }
