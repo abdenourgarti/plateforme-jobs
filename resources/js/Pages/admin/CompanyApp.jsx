@@ -13,13 +13,16 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+
+
+  console.log(data);
   const itemsPerPage = 5;
 
   // Load data from JSON file
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const response = await fetch('/json/applications.json');
+        const response = await fetch(route('candidat.applications'));
         if (!response.ok) throw new Error('Failed to fetch data');
         const jsonData = await response.json();
         setData(jsonData.applications);

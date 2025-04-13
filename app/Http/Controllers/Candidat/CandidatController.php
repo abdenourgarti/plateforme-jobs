@@ -248,7 +248,9 @@ class CandidatController extends Controller
 
     public function applications()
     {
+
         $candidat = Auth::user()->candidat;
+        
         $applications = OffreEmploiApplication::where('candidat_id', $candidat->id)
             ->with('offreEmploi.entreprise')
             ->latest()

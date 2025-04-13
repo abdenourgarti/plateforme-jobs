@@ -57,7 +57,7 @@ class Candidat extends Model
         return $this->hasMany(CandidatEducation::class);
     }
 
-    public function candidatures()
+    public function applications()
     {
         return $this->hasMany(OffreEmploiApplication::class);
     }
